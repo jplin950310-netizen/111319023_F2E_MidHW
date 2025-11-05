@@ -1,0 +1,243 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: #000;
+  color: #ddd;
+  font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+}
+
+/* Header */
+.site-header { padding: 24px 28px 12px; }
+.header-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.site-title {
+  font-family: "Bytesized";
+  color: #fff;
+  font-weight: 600;
+  font-size: 64px;
+  word-spacing: 12px; /* 單詞間距 */
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px white, 0 0 25px rgba(255,255,255,0.8); }
+  to { box-shadow: 0 0 20px white, 0 0 40px rgba(255,255,255,1); }
+}
+
+.main-nav {
+  list-style: none;
+  display: flex;
+  gap: 60px;
+  padding: 4px 20px;
+  border-radius: 4px;
+  align-items: center;
+  border: 1.5px solid white;
+  animation: glow 2s infinite alternate;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 60px;
+  padding: 4px 20px;
+  align-items: center;
+}
+
+.main-nav li {
+  position: relative; /* 為下拉選單定位 */
+}
+
+.main-nav a {
+  font-family: "Bytesized";
+  color: #e6e6e6;
+  text-decoration: none;
+  font-size: 24px;
+  padding: 6px 20px;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+/* 滑鼠移入文字變色 */
+.main-nav a:hover {
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+/* 下拉選單預設隱藏 */
+.dropdown {
+  display: none;
+  position: absolute;
+  left: 0;
+  background: #111;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  padding-top: 2px;
+  min-width: 180px;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  z-index: 4;
+}
+
+.dropdown li {
+  margin: 0;
+  padding: 0;
+}
+
+/* 下拉選單項目 */
+.dropdown li a {
+  display: block;
+  line-height: 0.9 !important;    /* 行距再縮小 */
+  font-size: 18px !important;     /* 字體微縮 */
+  color: #ddd;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.dropdown li a:hover {
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+/* 滑鼠移入顯示 */
+.main-nav li:hover > .dropdown {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+.container {
+  position: fixed;        /* 固定位置，不隨視窗滾動或變動 */
+  top: 150px;             /* 固定距離上方 150px */
+  left: 50%;              /* 水平對齊視窗正中間 */
+  transform: translateX(-50%); /* 往左平移一半寬度，確保完全置中 */
+  width: 1200px;          /* 固定寬度 */
+  height: 1000px;          /* 固定高度 */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  padding: 80px;
+  gap: 40px;
+}
+
+/* 左側影片 */
+.video-section {
+  margin-top: 20px;
+  margin-right: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.video-section iframe {
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.966);
+}
+
+.video-section p{
+  margin-top: 70px;
+  width: 100%;
+  max-width: 560px;
+  border-left: 1px solid #fff;
+  padding: 0px 15px;
+}
+
+/* 右側資訊卡 */
+.info-card {
+  width: 350px;
+  flex-shrink: 0;
+  align-items: center;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.966);
+}
+
+.name {
+  font-family: "Bytesized";
+  border-bottom: 1px solid white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.avatar img {
+  width: 120px;
+  height: auto;
+}
+
+.section-title {
+  font-family: "LXGW WenKai Mono TC";
+  text-align: center;
+  border: 1px solid white;
+  padding: 8px;
+  border-radius: 6px;
+  margin: 15px 0;
+}
+
+.info {
+  font-size: 14px;
+  line-height: 1.6;
+  padding-left: 10px;
+}
+
+.info p {
+  display: flex;
+  align-items: center; /* 垂直置中 strong 和內容 */
+  margin-bottom: 30px;
+}
+
+.info strong {
+  width: 100px;         /* 固定欄位名稱寬度 */
+  flex-shrink: 0;       /* 不被擠壓 */
+  text-align: left;     /* 名稱靠左 */
+}
+
+/* Footer */
+.footer-bar {
+  width: 80%;             /* 自訂寬度 */
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: #111;
+  color: #fff;
+  padding: 20px 0;
+  
+  display: flex;           /* Flex 排版 */
+  justify-content: space-between; /* 左中右平均分配空間 */
+  align-items: center;     /* 垂直置中 */
+}
+
+.footer-bar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  text-align: center;
+  flex: 1;                 /* 先讓每個 a 平分空間 */
+}
+
+.footer-bar a:nth-child(2) {
+  text-align: center;      /* 中間 a 居中 */
+}
+
+.footer-bar a:nth-child(1) {
+  padding-left: 50px;
+  text-align: left;        /* 左邊 a 靠左 */
+}
+
+.footer-bar a:nth-child(3) {
+  padding-right: 50px;
+  text-align: right;       /* 右邊 a 靠右 */
+}
