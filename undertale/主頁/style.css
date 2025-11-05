@@ -247,6 +247,13 @@ main {
 }
 
 /* Footer */
+
+.site-footer {
+  background-color: transparent;
+  text-align: start;
+  padding: 0; /* 移除內距，避免空隙 */
+}
+
 .footer-bar {
   width: 80%;             /* 自訂寬度 */
   max-width: 1100px;
@@ -270,7 +277,7 @@ main {
 
 .footer-img {
   width: 70px;
-  margin-left: 200px;
+  margin-left: 150px;
 }
 
 @keyframes spin {
