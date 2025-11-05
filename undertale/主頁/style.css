@@ -1,12 +1,14 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
+  background-image: url('../background.jpg');
+  background-size: cover;
+  background-position: center;
   background-color: transparent;
   color: #ddd;
   font-family: "Segoe UI", "Noto Sans TC", sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* 100% 視窗高度 */
-  background-color: #000;
 }
 
 main {
@@ -44,6 +46,7 @@ main {
   align-items: center;
   border: 1.5px solid white;
   animation: glow 2s infinite alternate;
+  background-color: black;
 }
 
 .main-nav ul {
@@ -98,8 +101,8 @@ main {
 /* 下拉選單項目 */
 .dropdown li a {
   display: block;
-  line-height: 0.9 !important;    /* 行距再縮小 */
-  font-size: 18px !important;     /* 字體微縮 */
+  line-height: 0.9;    /* 行距再縮小 */
+  font-size: 18px;     /* 字體微縮 */
   color: #ddd;
   transition: color 0.3s, text-shadow 0.3s;
 }
@@ -179,7 +182,7 @@ main {
   position: absolute;
   top: 95%;
   transform: translateY(-50%);
-  background: transparent;
+  background: black;
   border: none;
   color: #fff;
   font-size: 32px;
@@ -240,28 +243,25 @@ main {
   opacity: 0.3;
 }
 
-.site-footer {
-  width: 80%;             /* 自訂寬度 */
-  max-width: 1100px;
-  margin: 0 auto;
-}
 
 /* Footer */
-
 .site-footer {
+  width: 100%;             /* 自訂寬度 */
+  max-width: 1440px;
+  margin: 0 auto;
   background-color: transparent;
   text-align: start;
   padding: 0; /* 移除內距，避免空隙 */
 }
 
 .footer-bar {
-  width: 80%;             /* 自訂寬度 */
-  max-width: 1100px;
+  width: 100%;             /* 自訂寬度 */
+  max-width: 1440px;
+  height: 77px;
   margin: 0 auto;
   background-color: #2b2b2b;
   color: #fff;
   padding: 20px 0;
-  
   display: flex;           /* Flex 排版 */
   justify-content: space-between; /* 左中右平均分配空間 */
   align-items: center;     /* 垂直置中 */

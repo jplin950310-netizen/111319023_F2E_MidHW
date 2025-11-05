@@ -1,6 +1,9 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background-color: #000;
+  background-image: url('../../background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
   color: #ddd;
   font-family: "Segoe UI", "Noto Sans TC", sans-serif;
 }
@@ -36,6 +39,7 @@ body {
   align-items: center;
   border: 1.5px solid white;
   animation: glow 2s infinite alternate;
+  background-color: black;
 }
 
 .main-nav ul {
@@ -109,8 +113,7 @@ body {
 }
 
 .container {
-  position: fixed;        /* 固定位置，不隨視窗滾動或變動 */
-  top: 150px;             /* 固定距離上方 150px */
+  position: relative;        /* 固定位置，不隨視窗滾動或變動 */ 
   left: 50%;              /* 水平對齊視窗正中間 */
   transform: translateX(-50%); /* 往左平移一半寬度，確保完全置中 */
   width: 1200px;          /* 固定寬度 */
@@ -157,6 +160,7 @@ body {
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.966);
+  background-color: black;
 }
 
 .name {
@@ -175,7 +179,7 @@ body {
 }
 
 .avatar img {
-  width: 120px;
+  width: 100px;
   height: auto;
 }
 
@@ -207,14 +211,23 @@ body {
 }
 
 /* Footer */
-.footer-bar {
-  width: 80%;             /* 自訂寬度 */
-  max-width: 1100px;
+.site-footer {
+  width: 100%;             /* 自訂寬度 */
+  max-width: 1440px;
   margin: 0 auto;
-  background-color: #111;
+  background-color: transparent;
+  text-align: start;
+  padding: 0; /* 移除內距，避免空隙 */
+}
+
+.footer-bar {
+  width: 100%;             /* 自訂寬度 */
+  max-width: 1440px;
+  height: 105px;
+  margin: 0 auto;
+  background-color: #2b2b2b;
   color: #fff;
   padding: 20px 0;
-  
   display: flex;           /* Flex 排版 */
   justify-content: space-between; /* 左中右平均分配空間 */
   align-items: center;     /* 垂直置中 */
@@ -226,6 +239,23 @@ body {
   font-size: 14px;
   text-align: center;
   flex: 1;                 /* 先讓每個 a 平分空間 */
+}
+
+.footer-img {
+  width: 70px;
+  margin-left: 150px;
+}
+
+@keyframes spin {
+  from{
+    transform: rotate(0deg);
+  }to{
+    transform: rotate(360deg);
+  }
+}
+
+.footer-img:hover {
+  animation: spin 1s linear infinite;
 }
 
 .footer-bar a:nth-child(2) {
