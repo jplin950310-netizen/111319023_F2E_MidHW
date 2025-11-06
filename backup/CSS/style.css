@@ -105,8 +105,6 @@ main {
 /* 下拉選單項目 */
 .dropdown li a {
   display: block;
-  line-height: 0.9;    /* 行距再縮小 */
-  font-size: 18px;     /* 字體微縮 */
   color: #ddd;
   transition: color 0.3s, text-shadow 0.3s;
 }
@@ -140,7 +138,6 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   transition: transform 0.5s ease;
   position: relative;
   width: 1080px;
@@ -160,7 +157,6 @@ main {
   opacity: 1;
   transform: scale(1);
   z-index: 3;
-  max-width: 80%;
   width: 1080px;
   height: 400px;
 }
@@ -186,7 +182,7 @@ main {
   position: absolute;
   top: 95%;
   transform: translateY(-50%);
-  background: black;
+  background: transparent;
   border: none;
   color: #fff;
   font-size: 32px;
@@ -208,10 +204,8 @@ main {
 }
 .character-row {
   width: 920px;
-  max-width: calc(100% - 40px);
   display: flex;
   gap: 18px;
-  align-items: flex-start;
   padding: 20px 16px;
 }
 .char-box {
@@ -235,7 +229,6 @@ main {
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: contain;
-  filter: grayscale(100%) contrast(110%);
 }
 .char-img-special {
   width: 60px;
@@ -243,37 +236,33 @@ main {
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: contain;
-  filter: grayscale(100%) contrast(110%);
   opacity: 0.3;
 }
 
 
 /* Footer */
 .site-footer {
-  width: 100%;             /* 自訂寬度 */
+  width: 100%;
   max-width: 1440px;
   margin: 0 auto;
   background-color: transparent;
   text-align: start;
-  padding: 0; /* 移除內距，避免空隙 */
+  padding: 0;
 }
 
 .footer-bar {
-  width: 100%;             /* 自訂寬度 */
   max-width: 1440px;
   height: 77px;
   margin: 0 auto;
   background-color: #2b2b2b;
   color: #fff;
-  padding: 20px 0;
-  display: flex;           /* Flex 排版 */
-  justify-content: space-between; /* 左中右平均分配空間 */
-  align-items: center;     /* 垂直置中 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .footer-bar a {
   color: #fff;
-  text-decoration: none;
   font-size: 14px;
   text-align: center;
   flex: 1;                 /* 先讓每個 a 平分空間 */
@@ -294,18 +283,4 @@ main {
 
 .footer-img:hover {
   animation: spin 1s linear infinite;
-}
-
-.footer-bar a:nth-child(2) {
-  text-align: center;      /* 中間 a 居中 */
-}
-
-.footer-bar a:nth-child(1) {
-  padding-left: 50px;
-  text-align: left;        /* 左邊 a 靠左 */
-}
-
-.footer-bar a:nth-child(3) {
-  padding-right: 50px;
-  text-align: right;       /* 右邊 a 靠右 */
 }
