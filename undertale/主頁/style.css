@@ -9,6 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* 100% 視窗高度 */
+  background-attachment: fixed; 
 }
 
 main {

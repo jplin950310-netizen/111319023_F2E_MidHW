@@ -6,6 +6,7 @@ body {
   background-color: transparent;
   color: #ddd;
   font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+  background-attachment: fixed; 
 }
 
 /* Header */
