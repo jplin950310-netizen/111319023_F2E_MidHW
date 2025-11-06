@@ -1,7 +1,6 @@
-// 選取容器
+
 const container = document.querySelector(".login-container");
 
-// 登入表單互動
 document.getElementById("loginForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
@@ -17,17 +16,14 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     message.textContent = "登入成功！";
     container.style.boxShadow = "0 0 40px white";
 
-    // 延遲 0.6 秒顯示歡迎提示
     setTimeout(() => {
-      // 再延遲一點跳轉到你要的頁面
       setTimeout(() => {
-        window.location.href = "./main.html"; // ← 這裡改成你的目標檔案
+        window.location.href = "./main.html";
       }, 500);
     }, 600);
   }
 });
 
-// 動態樣式：光暈 & 抖動
 const style = document.createElement("style");
 style.innerHTML = `
 @keyframes shake {
@@ -55,7 +51,6 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-// 自然亂碼動畫，逐字完成再到下一字
 function scrambleFlow(elements, speed = 30, maxScramble = 10, onComplete = null) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>/?";
 
@@ -65,7 +60,6 @@ function scrambleFlow(elements, speed = 30, maxScramble = 10, onComplete = null)
     done: false
   }));
 
-  // 初始化：文字空白
   items.forEach(item => {
     item.el.textContent = " ".repeat(item.text.length);
   });

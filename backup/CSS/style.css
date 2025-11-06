@@ -17,7 +17,10 @@ main {
 }
 
 /* Header */
-.site-header { padding: 24px 28px 12px; }
+.site-header {
+  padding: 24px 28px 12px; 
+}
+
 .header-inner {
   display: flex;
   flex-direction: column;
@@ -50,7 +53,7 @@ main {
   background-color: black;
 }
 
-.main-nav ul {
+.main-ul{
   list-style: none;
   display: flex;
   gap: 60px;
