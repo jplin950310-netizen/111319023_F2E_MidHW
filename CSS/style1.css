@@ -1,0 +1,253 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  color: #ddd;
+  font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-attachment: fixed; 
+}
+
+/* Header */
+.site-header {
+  padding: 24px 28px 12px; 
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.site-title {
+  font-family: "Bytesized";
+  color: #fff;
+  font-weight: 600;
+  font-size: 64px;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px white, 0 0 25px rgba(255,255,255,0.8); }
+  to { box-shadow: 0 0 20px white, 0 0 40px rgba(255,255,255,1); }
+}
+
+.main-nav {
+  list-style: none;
+  display: flex;
+  gap: 60px;
+  padding: 4px 20px;
+  border-radius: 4px;
+  align-items: center;
+  border: 1.5px solid white;
+  animation: glow 2s infinite alternate;
+  background-color: black;
+}
+
+.main-ul{
+  list-style: none;
+  display: flex;
+  gap: 60px;
+  padding: 4px 20px;
+  align-items: center;
+}
+
+.main-nav li {
+  position: relative;
+}
+
+.main-nav a {
+  font-family: "Bytesized";
+  color: #e6e6e6;
+  text-decoration: none;
+  font-size: 24px;
+  padding: 6px 20px;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.main-nav a:hover {
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  left: 0;
+  background: #111;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  padding-top: 2px;
+  min-width: 180px;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  z-index: 4;
+}
+
+.dropdown li {
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li a {
+  display: block;
+  color: #ddd;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.dropdown li a:hover {
+  color: rgb(255, 255, 255);
+  text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+.main-nav li:hover > .dropdown {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+.container {
+  position: relative;
+  left: 50%;              /* 水平對齊視窗正中間 */
+  transform: translateX(-50%); /* 往左平移一半寬度，確保完全置中 */
+  width: 1200px;
+  height: 1000px;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+  padding: 80px;
+  gap: 40px;
+}
+
+/* 左邊影片 */
+.video-section {
+  margin-top: 20px;
+  margin-right: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.video-section iframe {
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.966);
+}
+
+.video-section p{
+  margin-top: 70px;
+  width: 100%;
+  max-width: 560px;
+  border-left: 1px solid #fff;
+  padding: 0px 15px;
+}
+
+/* 右邊資訊 */
+.info-card {
+  width: 350px;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.966);
+  background-color: black;
+}
+
+.name {
+  font-family: "Bytesized";
+  border-bottom: 1px solid white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.avatar img {
+  width: 100px;
+  height: auto;
+}
+
+.section-title {
+  font-family: "LXGW WenKai Mono TC";
+  text-align: center;
+  border: 1px solid white;
+  padding: 8px;
+  border-radius: 6px;
+  margin: 15px 0;
+}
+
+.info {
+  font-size: 14px;
+  line-height: 1.6;
+  padding-left: 10px;
+}
+
+.info p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.info strong {
+  width: 100px;
+  flex-shrink: 0; 
+  text-align: left;
+}
+
+/* Footer */
+.site-footer {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: transparent;
+  text-align: start;
+  padding: 0;
+}
+
+.footer-bar {
+  max-width: 1440px;
+  height: 77px;
+  margin: 0 auto;
+  background-color: #2b2b2b;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-bar a {
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  flex: 1;    
+}
+
+.footer-img {
+  width: 70px;
+  margin-left: 150px;
+}
+
+@keyframes spin {
+  from{
+    transform: rotate(0deg);
+  }to{
+    transform: rotate(360deg);
+  }
+}
+
+.footer-img:hover {
+  animation: spin 1s linear infinite;
+}

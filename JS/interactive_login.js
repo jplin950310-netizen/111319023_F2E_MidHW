@@ -18,7 +18,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
 
     setTimeout(() => {
       setTimeout(() => {
-        window.location.href = "./index.html";
+        window.location.href = "./main.html";
       }, 500);
     }, 600);
   }
@@ -79,7 +79,7 @@ function scrambleFlow(elements, speed = 30, maxScramble = 10, onComplete = null)
       if (charIndex >= item.text.length) {
         item.done = true;
         currentIndex++;
-        setTimeout(processNextElement, 100); // 元素間稍停
+        setTimeout(processNextElement, 100);
         return;
       }
 
@@ -98,7 +98,7 @@ function scrambleFlow(elements, speed = 30, maxScramble = 10, onComplete = null)
           item.el.textContent = display.join("");
           clearInterval(interval);
           charIndex++;
-          processNextChar(); // 下一個字
+          processNextChar();
         }
       }, speed);
     }
@@ -109,7 +109,6 @@ function scrambleFlow(elements, speed = 30, maxScramble = 10, onComplete = null)
   processNextElement();
 }
 
-// 初始化元素
 const elementsToScramble = [
   { el: document.getElementById("loginTitle"), text: "SIGN IN" },
   { el: document.getElementById("usernameLabel"), text: "username" },
@@ -117,7 +116,6 @@ const elementsToScramble = [
   { el: document.getElementById("loginBtn"), text: "LOGIN" }
 ];
 
-// 呼叫亂碼動畫
 scrambleFlow(elementsToScramble, 20, 10, () => {
   // 文字完成後先觸發光暈
   container.classList.add("glow-active");
