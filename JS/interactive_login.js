@@ -18,7 +18,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
 
     setTimeout(() => {
       setTimeout(() => {
-        window.location.href = "./main.html";
+        window.location.href = "./index.html";
       }, 500);
     }, 600);
   }
