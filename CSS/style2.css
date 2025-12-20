@@ -8,7 +8,7 @@ body {
   font-family: "Segoe UI", "Noto Sans TC", sans-serif;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* 100% 視窗高度 */
+  min-height: 100vh;
   background-attachment: fixed; 
 }
 
@@ -36,7 +36,6 @@ body {
   to { box-shadow: 0 0 20px white, 0 0 40px rgba(255,255,255,1); }
 }
 
-/* 將 main-nav 改成 ul li 結構 */
 .main-nav {
   list-style: none;
   display: flex;
@@ -58,7 +57,7 @@ body {
 }
 
 .main-nav li {
-  position: relative; /* 為下拉選單定位 */
+  position: relative;
 }
 
 .main-nav a {
@@ -70,13 +69,11 @@ body {
   transition: color 0.3s, text-shadow 0.3s;
 }
 
-/* 滑鼠移入文字變色 */
 .main-nav a:hover {
   color: rgb(255, 255, 255);
   text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
-/* 下拉選單預設隱藏 */
 .dropdown {
   display: none;
   position: absolute;
@@ -98,7 +95,6 @@ body {
   padding: 0;
 }
 
-/* 下拉選單項目 */
 .dropdown li a {
   display: block;
   color: #ddd;
@@ -110,7 +106,6 @@ body {
   text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
-/* 滑鼠移入顯示 */
 .main-nav li:hover > .dropdown {
   display: flex;
   opacity: 1;
@@ -118,22 +113,21 @@ body {
 }
 
 .container {
-  position: relative;
-  left: 50%;              /* 水平對齊視窗正中間 */
-  transform: translateX(-50%); /* 往左平移一半寬度，確保完全置中 */
-  width: 1200px;
-  height: 1000px;
+  flex: 1; /* 讓 container 占據剩餘空間 */
+  width: 100%;
+  max-width: 1200px;
   display: flex;
-  align-items: flex-start;
-  overflow: hidden;
-  padding: 80px;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 40px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* 左側影片 */
+/* 左邊影片 */
 .video-section {
   margin-top: 20px;
-  margin-right: 100px;
+  margin-right: 30px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -143,22 +137,24 @@ body {
 .video-section iframe {
   width: 100%;
   max-width: 560px;
-  height: 315px;
+  aspect-ratio: 16/9;     /* 自動保持 16:9 */
+  height: auto;
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.966);
 }
 
-.video-section p{
-  margin-top: 70px;
+.video-section p {
   width: 100%;
   max-width: 560px;
+  margin-top: 20px;
   border-left: 1px solid #fff;
-  padding: 0px 15px;
+  padding-left: 10px;
 }
 
-/* 右側資訊卡 */
+/* 右邊資訊 */
 .info-card {
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
+  margin-top: 20px;  
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.966);
@@ -202,14 +198,14 @@ body {
 
 .info p {
   display: flex;
-  align-items: center; /* 垂直置中 strong 和內容 */
+  align-items: center;
   margin-bottom: 30px;
 }
 
 .info strong {
-  width: 100px;         /* 固定欄位名稱寬度 */
-  flex-shrink: 0;       /* 不被擠壓 */
-  text-align: left;     /* 名稱靠左 */
+  width: 100px;
+  flex-shrink: 0; 
+  text-align: left;
 }
 
 /* Footer */
@@ -229,7 +225,9 @@ body {
   background-color: #2b2b2b;
   color: #fff;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;   
+  justify-content: center; 
+  gap: 10px;
   align-items: center;
 }
 
@@ -237,7 +235,7 @@ body {
   color: #fff;
   font-size: 14px;
   text-align: center;
-  flex: 1;                 /* 先讓每個 a 平分空間 */
+  flex: 1;                 /*平分空間*/
 }
 
 .footer-img {
@@ -255,4 +253,117 @@ body {
 
 .footer-img:hover {
   animation: spin 1s linear infinite;
+}
+
+/* 漢堡選單按鈕 */
+.menu-toggle {
+  display: none;
+}
+
+.menu-toggle:checked + .hamburger + .main-nav {
+  display: flex;
+}
+
+.hamburger {
+  display: none;
+  font-size: 28px;
+  color: #fff;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+/* 手機版 RWD */
+@media (max-width:1028px) {
+  /* 顯示漢堡按鈕 */
+  .hamburger {
+    display: block;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    position: fixed;   /* 固定在右上角 */
+    top: 20px;
+    right: 20px;
+    z-index: 10000;    /* 確保在最上層，能點擊 */
+  }
+
+  /* 初始隱藏導航選單 */
+  .main-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.95);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 9999;
+  }
+
+  .main-nav.open {
+    display: flex;
+  }
+
+  .main-ul {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .main-nav a {
+    font-size: 18px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+
+  .main-nav li {
+    width: 100%;
+  }
+
+  /* 手機沒有 hover → 下拉選單改成永遠顯示 */
+  .dropdown {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    visibility: visible;
+    gap: 10px;
+    padding-left: 0;
+    min-width: unset;
+    border: none;
+    background: transparent;
+  }
+
+  .dropdown li a {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
+  /* 移除 hover 控制 */
+  .main-nav li:hover > .dropdown {
+    display: flex;
+  }
+
+  .footer-bar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
+    gap: 6px;
+  }
+
+  .footer-img {
+    margin-left: 20px;
+    margin-bottom: 6px;
+  }
+
+  .footer-bar a {
+    font-size: 12px;
+  }
 }

@@ -32,12 +32,16 @@ main {
   font-family: "Bytesized";
   color: #fff;
   font-weight: 600;
-  font-size: clamp(21, vw, 64);
+  font-size: 64px;
 }
 
 @keyframes glow {
   from { box-shadow: 0 0 10px white, 0 0 25px rgba(255,255,255,0.8); }
   to { box-shadow: 0 0 20px white, 0 0 40px rgba(255,255,255,1); }
+}
+
+.hamburger {
+  display: none;  /* 桌面模式隱藏，不占位 */
 }
 
 .main-nav {
