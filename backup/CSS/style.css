@@ -8,7 +8,7 @@ body {
   font-family: "Segoe UI", "Noto Sans TC", sans-serif;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* 100% 視窗高度 */
+  min-height: 100vh;
   background-attachment: fixed; 
 }
 
@@ -32,7 +32,7 @@ main {
   font-family: "Bytesized";
   color: #fff;
   font-weight: 600;
-  font-size: 64px;
+  font-size: clamp(21, vw, 64);
 }
 
 @keyframes glow {
@@ -40,7 +40,6 @@ main {
   to { box-shadow: 0 0 20px white, 0 0 40px rgba(255,255,255,1); }
 }
 
-/* 將 main-nav 改成 ul li 結構 */
 .main-nav {
   list-style: none;
   display: flex;
@@ -62,7 +61,7 @@ main {
 }
 
 .main-nav li {
-  position: relative; /* 為下拉選單定位 */
+  position: relative;
 }
 
 .main-nav a {
@@ -74,13 +73,12 @@ main {
   transition: color 0.3s, text-shadow 0.3s;
 }
 
-/* 滑鼠移入文字變色 */
+/* 滑鼠移動文字變色 */
 .main-nav a:hover {
   color: rgb(255, 255, 255);
   text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
-/* 下拉選單預設隱藏 */
 .dropdown {
   display: none;
   position: absolute;
@@ -102,7 +100,6 @@ main {
   padding: 0;
 }
 
-/* 下拉選單項目 */
 .dropdown li a {
   display: block;
   color: #ddd;
@@ -114,7 +111,6 @@ main {
   text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
-/* 滑鼠移入顯示 */
 .main-nav li:hover > .dropdown {
   display: flex;
   opacity: 1;
@@ -177,7 +173,6 @@ main {
   height: 400px;
 }
 
-/* Carousel buttons */
 .nav-btn {
   position: absolute;
   top: 95%;
@@ -265,7 +260,7 @@ main {
   color: #fff;
   font-size: 14px;
   text-align: center;
-  flex: 1;                 /* 先讓每個 a 平分空間 */
+  flex: 1;                 /*平分空間*/
 }
 
 .footer-img {
@@ -283,4 +278,154 @@ main {
 
 .footer-img:hover {
   animation: spin 1s linear infinite;
+}
+
+@media (max-width: 1028px) {
+
+  .hamburger {
+    display: block;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    position: fixed;   /* 固定在右上角 */
+    top: 20px;
+    right: 20px;
+    z-index: 10000;    /* 確保在最上層，能點擊 */
+  }
+
+  /* 初始隱藏導航選單 */
+  .main-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.95);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 9999;
+  }
+
+  .main-nav.open {
+    display: flex;
+  }
+
+  .main-ul {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .main-nav a {
+    font-size: 18px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+
+  .main-nav li {
+    width: 100%;
+  }
+
+  /* 手機沒有 hover → 下拉選單改成永遠顯示 */
+  .dropdown {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    visibility: visible;
+    gap: 10px;
+    padding-left: 0;
+    min-width: unset;
+    border: none;
+    background: transparent;
+  }
+
+  .dropdown li a {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
+  /* 移除 hover 控制 */
+  .main-nav li:hover > .dropdown {
+    display: flex;
+  }
+
+  .carousel {
+    width: 500PX;
+    height: 240px;
+    margin: 20px auto;
+  }
+
+  .carousel-track {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-track img {
+    max-width: 90%;
+    max-width: 90%;
+  }
+
+  .carousel-track img.active {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-track img.left {
+    transform: translateX(-120px) scale(0.6);
+    transform: translateY(-120px) scale(0.6);
+  }
+
+  .carousel-track img.right {
+    transform: translateX(120px) scale(0.6);
+    transform: translateY(120px) scale(0.6);
+  }
+
+  .nav-btn {
+    top: 90%;
+    font-size: 24px;
+  }
+
+  .characters-wrap {
+    margin-top: 40px;
+  }
+
+  .character-row {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .char-box {
+    width: 64px;
+    height: 180px;
+  }
+
+  .char-img,
+  .char-img-special {
+    width: 50px;
+    height: 120px;
+  }
+
+   .footer-bar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
+    gap: 6px;
+  }
+
+  .footer-img {
+    margin-left: 0;
+    margin-bottom: 6px;
+  }
+
+  .footer-bar a {
+    font-size: 12px;
+  }
 }

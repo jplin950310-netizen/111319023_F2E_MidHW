@@ -43,4 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 初始化
   updateCarousel();
+
+  const hamburger = document.querySelector('.hamburger');
+  const mainNav = document.querySelector('.main-nav');
+
+  if (hamburger && mainNav) {
+    hamburger.addEventListener('click', () => {
+      mainNav.classList.toggle('open'); // 點一次開、再點一次關
+    });
+  }
 });
