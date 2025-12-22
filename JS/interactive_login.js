@@ -1,11 +1,10 @@
-// 1. 引入 Firebase 必要功能
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { 
   getAuth, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-// 2. 貼上你的 Firebase 配置
+
 const firebaseConfig = {
   apiKey: "AIzaSyA8i_OQPaYxPxnlyw8PBaaiT98RPCzblQg",
   authDomain: "chat-box-fac06.firebaseapp.com",
@@ -15,65 +14,112 @@ const firebaseConfig = {
   appId: "1:83529081314:web:d05c7f3f389d5f0e6ed9bb",
   measurementId: "G-QX27493210"
 };
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
 const container = document.querySelector(".login-container");
+const form = document.getElementById("loginForm");
+const loginBtn = document.getElementById("loginBtn");
+const signUpBtn = document.getElementById("loginBtn1");
+const message = document.getElementById("message");
 
-document.getElementById("loginForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
+function getCredentials() {
   const email = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
-  const message = document.getElementById("message");
-  const loginBtn = document.getElementById("loginBtn");
 
-  // 基本驗證
-  if (email === "" || password === "") {
+  if (!email || !password) {
     message.style.color = "red";
     message.textContent = "請輸入帳號與密碼";
     container.classList.add("shake");
     setTimeout(() => container.classList.remove("shake"), 400);
-    return;
+    return null;
   }
 
-  // 開始註冊邏輯
-  message.style.color = "white";
-  message.textContent = "正在同步至 Firebase...";
-  loginBtn.disabled = true; // 防止重複點擊
+  return { email, password };
+}
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // 成功註冊並寫入 Authenticator
-      message.style.color = "white";
-      message.textContent = "帳號建立成功！正在跳轉...";
-      
-      // 保留你原本的發光效果
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const creds = getCredentials();
+  if (!creds) return;
+
+  const { email, password } = creds;
+
+  message.style.color = "white";
+  message.textContent = "登入中...";
+  loginBtn.disabled = true;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      message.textContent = "登入成功，跳轉中...";
       container.style.boxShadow = "0 0 40px white";
 
       setTimeout(() => {
         window.location.href = "./index.html";
-      }, 1500);
+      }, 1200);
     })
     .catch((error) => {
       loginBtn.disabled = false;
       message.style.color = "red";
-      
-      // 處理常見錯誤
+
       switch (error.code) {
-        case 'auth/email-already-in-use':
-          message.textContent = "此帳號已存在，請直接登入";
+        case "auth/user-not-found":
+          message.textContent = "帳號不存在";
           break;
-        case 'auth/invalid-email':
-          message.textContent = "Email 格式不正確";
+        case "auth/wrong-password":
+          message.textContent = "密碼錯誤";
           break;
-        case 'auth/weak-password':
-          message.textContent = "密碼太弱（至少需 6 位數）";
+        case "auth/invalid-email":
+          message.textContent = "Email 格式錯誤";
           break;
         default:
-          message.textContent = "發生錯誤：" + error.message;
+          message.textContent = error.message;
       }
 
-      // 錯誤時觸發原本的抖動動畫
+      container.classList.add("shake");
+      setTimeout(() => container.classList.remove("shake"), 400);
+    });
+});
+
+signUpBtn.addEventListener("click", () => {
+  const creds = getCredentials();
+  if (!creds) return;
+
+  const { email, password } = creds;
+
+  message.style.color = "white";
+  message.textContent = "建立帳號中...";
+  signUpBtn.disabled = true;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      message.textContent = "帳號建立成功！";
+      container.style.boxShadow = "0 0 40px white";
+
+      setTimeout(() => {
+        window.location.href = "./index.html";
+      }, 1200);
+    })
+    .catch((error) => {
+      signUpBtn.disabled = false;
+      message.style.color = "red";
+
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          message.textContent = "此帳號已存在";
+          break;
+        case "auth/weak-password":
+          message.textContent = "密碼至少 6 碼";
+          break;
+        case "auth/invalid-email":
+          message.textContent = "Email 格式錯誤";
+          break;
+        default:
+          message.textContent = error.message;
+      }
+
       container.classList.add("shake");
       setTimeout(() => container.classList.remove("shake"), 400);
     });
@@ -108,12 +154,7 @@ document.head.appendChild(style);
 
 function scrambleFlow(elements, speed = 30, maxScramble = 10, onComplete = null) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>/?";
-
-  const items = elements.map(item => ({
-    el: item.el,
-    text: item.text,
-    done: false
-  }));
+  const items = elements.map(item => ({ ...item, done: false }));
 
   items.forEach(item => {
     item.el.textContent = " ".repeat(item.text.length);
@@ -132,7 +173,6 @@ function scrambleFlow(elements, speed = 30, maxScramble = 10, onComplete = null)
 
     function processNextChar() {
       if (charIndex >= item.text.length) {
-        item.done = true;
         currentIndex++;
         setTimeout(processNextElement, 100);
         return;
@@ -164,26 +204,22 @@ function scrambleFlow(elements, speed = 30, maxScramble = 10, onComplete = null)
   processNextElement();
 }
 
-const elementsToScramble = [
+scrambleFlow([
   { el: document.getElementById("loginTitle"), text: "SIGN IN" },
   { el: document.getElementById("usernameLabel"), text: "username" },
   { el: document.getElementById("passwordLabel"), text: "password" },
-  { el: document.getElementById("loginBtn"), text: "LOGIN" }
-];
-
-scrambleFlow(elementsToScramble, 20, 10, () => {
-  // 文字完成後先觸發光暈
+  { el: loginBtn, text: "LOGIN" },
+  { el: signUpBtn, text: "SIGN UP" },
+], 20, 10, () => {
   container.classList.add("glow-active");
 
-  // 延遲 500ms 再開始輸入框線條動畫
   setTimeout(() => {
     document.querySelectorAll(".input-group input").forEach(input => {
       input.classList.add("animate-line");
     });
 
-    // 再延遲 500ms 觸發背景顯示
     setTimeout(() => {
       document.body.classList.add("bg-visible");
-    }, 500); // 調整這個時間控制背景出現的節奏
+    }, 500);
   }, 500);
 });

@@ -133,7 +133,18 @@ button:hover {
   text-shadow: 0 0 5px red;
 }
 
-#loginBtn {
+.btn-group {
+  display: flex;
+  gap: 12px;              /* 兩個按鈕中間的距離 */
+  justify-content: center;/* 置中，可改成 space-between */
+}
+
+.btn-group button {
+  flex: 1;                /* 兩顆一樣寬 */
+}
+
+#loginBtn,
+#loginBtn1 {
   font-family: "Bytesized";
   position: relative;
   overflow: hidden;
