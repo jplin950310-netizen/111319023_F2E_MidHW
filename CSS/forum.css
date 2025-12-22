@@ -21,7 +21,8 @@ body {
   background-image: url('../images/background.jpg');
   background-size: cover;
   background-position: center;
-  background-color: #000;
+  background-color: transparent;
+  background-attachment: fixed;
   color: var(--accent);
   font-family: "Bytesized", "Segoe UI", "Noto Sans TC", sans-serif;
   min-height: 100vh;
@@ -29,6 +30,7 @@ body {
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
   padding-bottom: 56px; /* 避免固定 footer 遮住內容，根據 footer 高度調整 */
+
 }
 
 /* 確保標題與使用者名稱也使用 Bytesized */
