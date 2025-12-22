@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Undertale 討論區</title>
+  <link rel="stylesheet" href="CSS/forum.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1 class="site-title"><a href="index.html">UNDERTALE</a></h1>
+      <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="forum.html" class="active">Forum</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="forum-main">
+    <section class="forum-panel">
+      <h2 class="forum-title">討論區</h2>
+
+      <form id="message-form" class="message-form">
+        <div class="row">
+          <input id="username" type="text" placeholder="你的暱稱" required />
+          <input id="subject" type="text" placeholder="主題 (選填)" />
+        </div>
+        <textarea id="content" rows="4" placeholder="輸入你的留言..." required></textarea>
+        <div class="form-actions">
+          <button id="submit-btn" type="button">送出</button>
+          <small class="hint">請文明發言，系統會即時顯示留言。</small>
+        </div>
+      </form>
+
+      <div class="messages-wrap" id="messages-container">
+        <div class="loading">載入中…</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-bar">
+      <a>Footer 11/2</a>
+      <a>Copyrights 2025 jp cise</a>
+      <a>Design by Jp ,yunai</a>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } 
+      from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8i_OQPaYxPxnlyw8PBaaiT98RPCzblQg",
+      authDomain: "chat-box-fac06.firebaseapp.com",
+      projectId: "chat-box-fac06",
+      storageBucket: "chat-box-fac06.firebasestorage.app",
+      messagingSenderId: "83529081314",
+      appId: "1:83529081314:web:d05c7f3f389d5f0e6ed9bb",
+      measurementId: "G-QX27493210"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const msgCol = collection(db, "messages");
+
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.addEventListener('click', async () => {
+      const name = document.getElementById('username').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const content = document.getElementById('content').value.trim();
+      if (!name || !content) { alert('請填寫暱稱與內容'); return; }
+      try {
+        await addDoc(msgCol, { username: name, subject: subject || null, content, createdAt: serverTimestamp() });
+        document.getElementById('content').value = '';
+        document.getElementById('subject').value = '';
+      } catch (e) { console.error(e); alert('送出失敗'); }
+    });
+
+    const q = query(msgCol, orderBy('createdAt','desc'));
+    onSnapshot(q, (snapshot) => {
+      const container = document.getElementById('messages-container');
+      container.innerHTML = '';
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        const time = d.createdAt?.toDate ? d.createdAt.toDate().toLocaleString() : '剛剛';
+        const card = document.createElement('article');
+        card.className = 'message-card';
+        card.innerHTML = `
+          <header class="msg-head">
+            <div class="meta">
+              <span class="name">${escapeHtml(d.username)}</span>
+              ${d.subject ? `<span class="subject"> — ${escapeHtml(d.subject)}</span>` : ''}
+            </div>
+            <time class="time">${time}</time>
+          </header>
+          <p class="msg-content">${escapeHtml(d.content)}</p>
+        `;
+        container.appendChild(card);
+      });
+      if (!container.children.length) container.innerHTML = '<div class="empty">還沒有人發言，搶頭香！</div>';
+    });
+
+    function escapeHtml(s = '') {
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+  </script>
+</body>
+</html>

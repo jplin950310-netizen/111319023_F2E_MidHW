@@ -1,0 +1,289 @@
+/* 風格：使用你現有的背景圖（../images/background.jpg） */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --panel-bg: rgba(0,0,0,0.72);
+  --accent: #fff;
+  --muted: #cfcfcf;
+  --glass: rgba(255,255,255,0.04);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: #000;
+  color: var(--accent);
+  font-family: "Bytesized", "Segoe UI", "Noto Sans TC", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 56px; /* 避免固定 footer 遮住內容，根據 footer 高度調整 */
+}
+
+/* 確保標題與使用者名稱也使用 Bytesized */
+.forum-title,
+.name {
+  font-family: "Bytesized", monospace;
+}
+
+/* header */
+.site-header {
+  padding: 20px 24px;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-title {
+  font-family: "Bytesized", monospace;
+  font-size: 40px;
+  letter-spacing: 2px;
+}
+
+.site-title a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.top-nav a {
+  color: var(--muted);
+  padding: 6px 12px;
+  margin-left: 8px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.top-nav a.active {
+  background: var(--panel-bg);
+  box-shadow: 0 0 12px rgba(255,255,255,0.08);
+  color: var(--accent);
+}
+
+/* main panel */
+.forum-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.forum-panel {
+  width: 100%;
+  max-width: 900px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.75));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.03) inset;
+  padding: 24px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+}
+
+/* title */
+.forum-title {
+  font-family: "Bytesized", monospace;
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 16px;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+/* form */
+.message-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.message-form .row {
+  display: flex;
+  gap: 10px;
+}
+
+.message-form input[type="text"] {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--glass);
+  color: var(--accent);
+  outline: none;
+}
+
+.message-form textarea {
+  resize: vertical;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.45);
+  color: var(--accent);
+  min-height: 80px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-actions .hint {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#submit-btn {
+  background: #111;
+  border: 1px solid #fff;
+  color: var(--accent);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+#submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+/* messages list */
+.messages-wrap {
+  max-height: 480px;
+  overflow: auto;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+}
+
+.message-card {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.45);
+  margin-bottom: 10px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.msg-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.msg-head .meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.name {
+  font-weight: 700;
+  color: #fff;
+  font-family: "Bytesized", monospace;
+}
+
+.subject {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.time {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.msg-content {
+  color: #e6e6e6;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* small states */
+.empty,
+.loading {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px 10px;
+}
+
+/* footer */
+.site-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  padding: 12px 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+  backdrop-filter: blur(4px);
+}
+
+.footer-bar {
+  max-width: 1100px;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 0 12px;
+}
+
+/* 字型設定 */
+@font-face {
+  font-family: "Bytesized";
+  src: url("./fonts/Bytesized.woff2") format("woff2"),
+       url("./fonts/Bytesized.woff") format("woff");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 確保全頁與重要標題都使用 Bytesized */
+body,
+.forum-title,
+.name,
+.site-title {
+  font-family: "Bytesized", "Segoe UI", "Noto Sans TC", sans-serif !important;
+}
+
+/* responsive */
+@media (max-width: 720px) {
+  .header-inner {
+    padding: 0 12px;
+  }
+
+  .site-title {
+    font-size: 28px;
+  }
+
+  .forum-panel {
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  .messages-wrap {
+    max-height: 320px;
+  }
+
+  .message-form .row {
+    flex-direction: column;
+  }
+}
