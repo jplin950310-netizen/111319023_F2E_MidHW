@@ -49,6 +49,11 @@ body.bg-visible::before {
   letter-spacing: 2px;
   margin-bottom: 60px;
   text-shadow: 0 0 8px white;
+  line-height: 1;
+  display: inline-block;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
 }
 
 .input-group {
@@ -72,6 +77,9 @@ body.bg-visible::before {
   font-size: 26px;
   outline: none;
   transition: border-color 0.3s;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
 }
 
 .input-group span {

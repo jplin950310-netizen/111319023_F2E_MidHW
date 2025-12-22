@@ -1,19 +1,55 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+<link rel="icon" type="image/png" href="images/heart.png">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Undertale 討論區</title>
-  <link rel="stylesheet" href="CSS/forum.css">
+  <link rel="stylesheet" href="CSS/forum.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bytesized&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
       <h1 class="site-title"><a href="index.html">UNDERTALE</a></h1>
-      
+      <div class="loginbtn"><a href="./signin.html">LOGIN</a></div>
+      <button class="hamburger" aria-label="Toggle menu">
+        &#9776;
+      </button>
     </div>
-  </header>
-
+  
+    <nav class="main-nav">
+        <ul class="main-ul">
+          <li><a href="./index.html">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#">About Us</a>
+            <ul class="dropdown">
+              <a href="https://www.instagram.com/yunai10.04?igsh=eDBidjExZGNvcGd3&utm_source=qr" target="_blank">yunai</a>
+              <a href="https://www.instagram.com/lpgm.x?igsh=MW8xYjRjaWVhdnZkYQ%3D%3D&utm_source=qr" target="_blank">jplin</a>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#">Characters</a>
+            <ul class="dropdown">
+              <a href="cha1.html">Flowey</a>
+              <a href="cha2.html">Toriel</a>
+              <a href="cha3.html">Sans</a>
+              <a href="cha4.html">Papyrus</a>
+              <a href="cha5.html">Undyne</a>
+              <a href="cha6.html">Alphys</a>
+              <a href="cha7.html">Mettaton</a>
+              <a href="cha8.html">Asgore</a>
+              <a href="cha9.html">Asriel</a>
+            </ul>
+          </li>
+          <li class="forum-link"><a href="forum.html">Forum</a></li>
+          <li><a href="https://store.steampowered.com/app/391540/Undertale/?l=tchinese" target="_blank">Downloads</a></li>
+          <li><a href="#">Donate</a></li>
+        </ul>
+      </nav>
+    </header>
   <main class="forum-main">
     <section class="forum-panel">
       <h2 class="forum-title">討論區</h2>
@@ -44,6 +80,7 @@
     </div>
   </footer>
 
+  <script src="JS/script.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } 

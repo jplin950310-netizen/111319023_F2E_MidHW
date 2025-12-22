@@ -34,11 +34,20 @@ main {
   color: #fff;
   font-weight: 600;
   font-size: 64px;
+  line-height: 1;
+  display: inline-block;
+  /* Pixel font anti-alias fix (reduces stray white dots on some browsers) */
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
 }
 
 
 .site-title a {
   color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
 }
 
 .loginbtn a {
