@@ -12,6 +12,10 @@ body {
   background-attachment: fixed; 
 }
 
+main {
+  flex: 1;
+}
+
 /* Header */
 .site-header {
   padding: 24px 28px 12px; 
@@ -19,12 +23,14 @@ body {
 
 .header-inner {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
   gap: 24px;
   max-width: 1100px;
   margin: 0 auto;
 }
-.site-title {
+
+.site-title  {
   font-family: "Bytesized";
   color: #fff;
   font-weight: 600;
@@ -35,18 +41,48 @@ body {
   color: #fff;
 }
 
+.loginbtn a {
+  color: #fff;
+}
+
+.loginbtn { 
+  font-family: "Bytesized";
+  color: #fff;
+  font-weight: 600;
+  font-size: 26px;
+  align-self: center;
+  margin-right: 20px;
+  border-radius: 20%;
+  border: #fff;
+  padding: 6px 12px;
+  background-color: #3d3b3b;
+}
+
+.loginbtn :hover{
+  text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
 @keyframes glow {
   from { box-shadow: 0 0 10px white, 0 0 25px rgba(255,255,255,0.8); }
   to { box-shadow: 0 0 20px white, 0 0 40px rgba(255,255,255,1); }
 }
 
+.hamburger {
+  display: none;  /* 桌面模式隱藏，不占位 */
+}
+
 .main-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 20px;
   list-style: none;
   display: flex;
   gap: 60px;
-  padding: 4px 20px;
+  padding: 4px 5px;
   border-radius: 4px;
-  align-items: center;
   border: 1.5px solid white;
   animation: glow 2s infinite alternate;
   background-color: black;
@@ -73,6 +109,7 @@ body {
   transition: color 0.3s, text-shadow 0.3s;
 }
 
+/* 滑鼠移動文字變色 */
 .main-nav a:hover {
   color: rgb(255, 255, 255);
   text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
@@ -280,16 +317,26 @@ body {
 }
 
 /* 手機版 RWD */
-@media (max-width:1028px) {
-  /* 顯示漢堡按鈕 */
+@media (max-width: 1028px) {
+
+  
   .header-inner {
     flex-direction: column; 
     align-items: center;    /* 確保所有內容在手機版水平居中 */
     text-align: center;
   }
+
+  .loginbtn {
+    margin-right: 0;        /* 移除桌面版設定的右邊距 */
+    align-self: center;     /* 強制自己在容器中水平置中 */
+    font-size: 28px;        /* 稍微縮小手機版的字體 */
+    margin-top: 10px;       /* 增加一點跟標題之間的間隔 */
+  }
+
   .site-title {
     font-size: 48px;        /* 手機版標題稍微縮小以免破版 */
   }
+
   .hamburger {
     display: block;
     background: transparent;
@@ -315,7 +362,6 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    text-align: left;
     gap: 20px;
     z-index: 9999;
   }
@@ -326,18 +372,26 @@ body {
 
   .main-ul {
     flex-direction: column;
-    gap: 10px;
+    gap: 0px;
     width: 100%;
+    align-items: flex-start;
   }
 
   .main-nav a {
     font-size: 18px;
     padding: 10px 12px;
-    text-align: center;
+    text-align: left;
   }
-
+  
   .main-nav li {
     width: 100%;
+  }
+
+  .main-ul  li > a{
+    font-size: 20px ;   /* 標題大小 */
+    text-decoration: underline;
+    text-decoration-thickness: 2px;   /* 可選：調整粗細 */
+    text-underline-offset: 4px;       /* 可選：文字與底線間距 */
   }
 
   /* 手機沒有 hover → 下拉選單改成永遠顯示 */
@@ -347,16 +401,18 @@ body {
     flex-direction: column;
     opacity: 1;
     visibility: visible;
-    gap: 10px;
+    gap: 0px;
     padding-left: 0;
     min-width: unset;
     border: none;
     background: transparent;
+    align-items: flex-start;    /* dropdown靠左對齊 */
   }
 
   .dropdown li a {
     font-size: 16px;
     padding: 6px 10px;
+    
   }
 
   /* 移除 hover 控制 */
@@ -364,7 +420,65 @@ body {
     display: flex;
   }
 
-  .footer-bar {
+  .carousel {
+    width: 500PX;
+    height: 240px;
+    margin: 20px auto;
+  }
+
+  .carousel-track {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-track img {
+    max-width: 90%;
+    max-width: 90%;
+  }
+
+  .carousel-track img.active {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-track img.left {
+    transform: translateX(-120px) scale(0.6);
+    transform: translateY(-120px) scale(0.6);
+  }
+
+  .carousel-track img.right {
+    transform: translateX(120px) scale(0.6);
+    transform: translateY(120px) scale(0.6);
+  }
+
+  .nav-btn {
+    top: 90%;
+    font-size: 24px;
+  }
+
+  .characters-wrap {
+    margin-top: 40px;
+  }
+
+  .character-row {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .char-box {
+    width: 64px;
+    height: 180px;
+  }
+
+  .char-img,
+  .char-img-special {
+    width: 50px;
+    height: 120px;
+  }
+
+   .footer-bar {
     flex-direction: column;
     height: auto;
     padding: 10px 0;
@@ -372,9 +486,10 @@ body {
   }
 
   .footer-img {
-    margin-left: 20px;
+    margin-left: 0;
     margin-bottom: 6px;
   }
+
   .footer-bar a {
     font-size: 12px;
   }
@@ -382,6 +497,12 @@ body {
 
 /* >>> HAMBURGER CONSISTENCY SNIPPET START */
 @media (max-width:1028px) {
+  .header-inner {
+    flex-direction: column; 
+    align-items: center;    /* 確保所有內容在手機版水平居中 */
+    text-align: center;
+  }
+  
   .hamburger {
     display: block;
     background: transparent;
@@ -395,6 +516,10 @@ body {
     z-index: 10000;
   }
 
+  .site-title {
+    font-size: 48px;        /* 手機版標題稍微縮小以免破版 */
+  }
+
   .main-nav {
     display: none;
     position: fixed;
@@ -406,10 +531,12 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    text-align: left;
     gap: 20px;
     padding-left: 24px;
     z-index: 9999;
   }
+
   .main-nav.open { display: flex; }
 
   .main-ul {
@@ -438,7 +565,6 @@ body {
     flex-direction: column;
     opacity: 1;
     visibility: visible;
-    gap: 0;
     padding-left: 0;
     min-width: unset;
     border: none;
