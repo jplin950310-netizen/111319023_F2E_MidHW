@@ -52,4 +52,28 @@ document.addEventListener('DOMContentLoaded', () => {
       mainNav.classList.toggle('open'); // 點一次開、再點一次關
     });
   }
+
+  // Mobile dropdown support: tap to expand/collapse submenus
+  // Works with CSS rule: `.main-nav li.open > .dropdown { display: flex; ... }`
+  if (mainNav) {
+    const dropdownLis = mainNav.querySelectorAll('li.has-dropdown');
+    dropdownLis.forEach((li) => {
+      const trigger = li.querySelector(':scope > a');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', (e) => {
+        // Only intercept clicks when nav is in hamburger-open mode
+        if (!mainNav.classList.contains('open')) return;
+
+        e.preventDefault();
+
+        // Close other open dropdowns (accordion behavior)
+        dropdownLis.forEach((other) => {
+          if (other !== li) other.classList.remove('open');
+        });
+
+        li.classList.toggle('open');
+      });
+    });
+  }
 });

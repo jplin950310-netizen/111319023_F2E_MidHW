@@ -410,7 +410,7 @@ body {
 }
 
 /* Match index.html mobile header/login behavior */
-@media (max-width: 1028px) {
+@media (max-width: 1161px) {
   .header-inner {
     flex-direction: row;
     align-items: center;
@@ -466,6 +466,16 @@ body {
     width: 100%;
     border-radius: 8px;
     margin-top: 6px;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .dropdown a {
+    display: block;
+    width: 100%;
+    padding-left: 26px;
+    font-size: 18px;
   }
 
   .main-nav li:hover > .dropdown {
@@ -479,6 +489,9 @@ body {
     display: flex;
     opacity: 1;
     visibility: visible;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px 0;
   }
 }
 

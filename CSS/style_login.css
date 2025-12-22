@@ -170,7 +170,7 @@ button:hover {
 
 
 /* >>> HAMBURGER CONSISTENCY SNIPPET START */
-@media (max-width:1028px) {
+@media (max-width:1161px) {
   .hamburger {
     display: block;
     background: transparent;
