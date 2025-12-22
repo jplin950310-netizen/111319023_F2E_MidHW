@@ -1,27 +1,66 @@
+// 1. 引入 Firebase 必要功能
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+// 2. 貼上你的 Firebase 配置
+const firebaseConfig = {
+  apiKey: "AIzaSyA8i_OQPaYxPxnlyw8PBaaiT98RPCzblQg",
+  authDomain: "chat-box-fac06.firebaseapp.com",
+  projectId: "chat-box-fac06",
+  storageBucket: "chat-box-fac06.firebasestorage.app",
+  messagingSenderId: "83529081314",
+  appId: "1:83529081314:web:d05c7f3f389d5f0e6ed9bb",
+  measurementId: "G-QX27493210"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const container = document.querySelector(".login-container");
 
 document.getElementById("loginForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("username").value.trim(); // Firebase 通常使用 Email 登入
   const password = document.getElementById("password").value.trim();
   const message = document.getElementById("message");
+  const loginBtn = document.getElementById("loginBtn");
+  loginBtn.disabled = true;
+  message.textContent = "驗證中...";
+  message.style.color = "white";
 
-  if (username === "" || password === "") {
-    message.style.color = "red";
-    message.textContent = "請輸入帳號與密碼";
-  } else {
-    message.style.color = "white";
-    message.textContent = "登入成功！";
-    container.style.boxShadow = "0 0 40px white";
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // 登入成功
+      message.style.color = "white";
+      message.textContent = "登入成功！";
+      container.style.boxShadow = "0 0 40px white";
 
-    setTimeout(() => {
       setTimeout(() => {
-        window.location.href = "./index.html";
-      }, 500);
-    }, 600);
-  }
+        window.location.href = "index.html"; // 跳轉至首頁
+      }, 1200);
+    })
+    .catch((error) => {
+      // 登入失敗
+      loginBtn.disabled = false;
+      message.style.color = "red";
+      
+      // 根據錯誤代碼顯示訊息
+      switch (error.code) {
+        case 'auth/invalid-email':
+          message.textContent = "電子郵件格式錯誤";
+          break;
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
+          message.textContent = "帳號或密碼錯誤";
+          break;
+        default:
+          message.textContent = "登入失敗，請稍後再試";
+      }
+      
+      // 加入你原本寫好的抖動效果
+      container.classList.add("shake");
+      setTimeout(() => container.classList.remove("shake"), 400);
+    });
 });
 
 const style = document.createElement("style");
