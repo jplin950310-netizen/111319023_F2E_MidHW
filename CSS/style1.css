@@ -51,6 +51,12 @@ main {
 
 .loginbtn a {
   color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
 }
 
 .loginbtn { 
@@ -64,6 +70,13 @@ main {
   border: #fff;
   padding: 6px 12px;
   background-color: #3d3b3b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
 }
 
 .loginbtn :hover{

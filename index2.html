@@ -5,20 +5,17 @@
   
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Undertale-Sans</title>
-  <link rel="stylesheet" href="CSS/style1.css" />
+  <title>Undertale</title>
+  <link rel="stylesheet" href="CSS/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bytesized&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bytesized&family=LXGW+WenKai+Mono+TC&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <h1 class="site-title"><a href="./index.html">UNDERTALE</a></h1>
-      <div class="loginbtn"><a href="./signin.html">LOGIN</a></div>
+      <h1 class="site-title"><a href="./index2.html">UNDERTALE</a></h1>
+      <div class="loginbtn"><a href="./profile.html" id="loginBtnLink">profile</a></div>
       <button class="hamburger" aria-label="Toggle menu">
         &#9776;
       </button>
@@ -54,64 +51,63 @@
         </ul>
       </nav>
   </header>
-  <div class="container">
-    <!-- 左側影片區 -->
-    <div class="video-section">
-      <iframe 
-        src="https://www.youtube.com/embed/Vr4IYjeplJA" 
-        title="Sans Video"
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-      <p>
-        Sans是Papyrus的哥哥、Undertale的主要角色。
-        他初登場於主角穿越廢墟出口後的森林。
-        在中立及完美路線擔任輔助角色，
-        在屠殺路線作為最終頭目及英雄般的勁敵登場。<br>
-        他的名字是源自於"comic sans"字體，
-        而他說話時對話框也是使用這種字體。
-        這是源於一部網路漫畫Helvetica，
-        其中也有一名骷髏用字體命名，
-        在遊戲製作名單的"特別啟發"這欄有提到該漫畫的作者J.N. Wiedle。
-      </p>
-    </div>
-
-    <!-- 右側角色資訊卡 -->
-    <div class="info-card">
-      <h1 class="name">Sans</h1>
-      <div class="avatar">
-        <img src="./images/char3.webp" alt="Flowey">
+  <main>
+    <!-- 主要輪播區 -->
+    <section class="carousel">
+      <button class="nav-btn prev">&#10094;</button>
+      <div class="carousel-track">
+        <img src="images/undertale3.webp" alt="Undertale Image 1">
+        <img src="images/undertale2.webp" alt="Undertale Image 2">
+        <img src="images/undertale1.jpg" alt="Undertale Image 3">
       </div>
+      <button class="nav-btn next">&#10095;</button>
+    </section>
 
-      <div class="section-title">角色資訊</div>
-      <div class="info">
-        <p><strong>別稱</strong>懶惰骨頭 (Papyrus)<br>
-                                  微笑垃圾袋 (Flowey)<br>
-                                  Sansy (醉兔)</p>
-        <p><strong>中文名稱</strong>杉斯</p>
-        <p><strong>關係</strong>Papyrus(弟弟)<br>
-                                  Toriel(朋友)<br>
-                                  Alphys(朋友)<br>
-                                  Undyne(上級)</p>
-        <p><strong>血量</strong>1</p>
-        <p><strong>相遇順序</strong>3</p>
-        <p><strong>難度</strong>10</p>
+    <!-- 下方角色區 -->
+    <section class="characters-wrap">
+      <div class="character-row">
+        <a href="./cha1.html" class="char-box">
+          <div class="char-img" style="background-image:url('images/char1.webp');"></div>
+        </a>
+        <a href="./cha2.html" class="char-box">
+          <div class="char-img" style="background-image:url('images/char2.webp');"></div>
+        </a>
+        <a href="./cha3.html" class="char-box">
+          <div class="char-img" style="background-image:url('images/char3.webp');"></div>
+        </a>
+        <a href="./cha4.html" class="char-box">
+          <div class="char-img" style="background-image:url('images/char4.webp');"></div>
+        </a>
+        <a href="./cha5.html" class="char-box">
+          <div class="char-img" style="background-image:url('images/char5.webp');"></div>
+        </a>
+        <a href="./cha6.html" class="char-box">
+          <div class="char-img" style="background-image:url('images/char6.webp');"></div>
+        </a>
+        <a href="./cha7.html" class="char-box">
+          <div class="char-img" style="background-image:url('images/char7.webp');"></div>
+        </a>
+        <a href="./cha8.html" class="char-box">
+          <div class="char-img" style="background-image:url('images/char8.webp');"></div>
+        </a>
+        <a href="./cha9.html" class="char-box">
+          <div class="char-img-special" style="background-image:url('images/char9.webp');"></div>
+        </a>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <footer class="site-footer">
     <img src="./images/image.png" alt="Footer Image" class="footer-img">
     <div class="footer-bar">
-      <a>undertale</a>
+      <a>Footer 11/2</a>
       <a>Copyrights 2025 jp cise</a>
       <a>Design by Jp ,yunai</a>
     </div>
   </footer>
 
   <script src="JS/script.js"></script>
-  <!-- 検查登入狀態：已登入則改為 profile 連結 -->
+  <!-- 檢查登入狀態：未登入則跳轉回 index.html -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -134,12 +130,14 @@
     }
 
     const auth = getAuth(app);
-    const loginBtn = document.querySelector(".loginbtn a");
 
     onAuthStateChanged(auth, (user) => {
-      if (user && loginBtn) {
-        loginBtn.textContent = "profile";
-        loginBtn.href = "./profile.html";
+      if (!user) {
+        // 未登入，跳轉回主頁
+        window.location.href = "./index.html";
       }
     });
   </script>
+</body>
+</html>
+

@@ -15,7 +15,7 @@
   <header class="site-header">
     <div class="header-inner">
       <h1 class="site-title"><a href="./index.html">UNDERTALE</a></h1>
-      <div class="loginbtn"><a href="./signin.html">LOGIN</a></div>
+      <div class="loginbtn"><a href="./signin.html" id="loginBtnLink">LOGIN</a></div>
       <button class="hamburger" aria-label="Toggle menu">
         &#9776;
       </button>
@@ -107,6 +107,37 @@
   </footer>
 
   <script src="JS/script.js"></script>
+  <!-- 檢查登入狀態：已登入則跳轉到 index2.html -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8i_OQPaYxPxnlyw8PBaaiT98RPCzblQg",
+      authDomain: "chat-box-fac06.firebaseapp.com",
+      projectId: "chat-box-fac06",
+      storageBucket: "chat-box-fac06.firebasestorage.app",
+      messagingSenderId: "83529081314",
+      appId: "1:83529081314:web:d05c7f3f389d5f0e6ed9bb",
+      measurementId: "G-QX27493210",
+    };
+
+    let app;
+    try {
+      app = initializeApp(firebaseConfig);
+    } catch (e) {
+      if (e.code !== "app/duplicate-app") throw e;
+    }
+
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // 已登入，跳轉到登入後的主頁
+        window.location.href = "./index2.html";
+      }
+    });
+  </script>
 </body>
 </html>
 

@@ -64,6 +64,23 @@ main {
   border: #fff;
   padding: 6px 12px;
   background-color: #3d3b3b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+}
+
+.loginbtn a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.loginbtn img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
 }
 
 .loginbtn :hover{
@@ -112,6 +129,9 @@ main {
   font-family: "Bytesized";
   color: #e6e6e6;
   text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   font-size: 24px;
   padding: 6px 20px;
   transition: color 0.3s, text-shadow 0.3s;
@@ -129,6 +149,9 @@ main {
   left: 0;
   background: #111;
   border: 1px solid #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   border-radius: 6px;
   padding-top: 2px;
   min-width: 180px;

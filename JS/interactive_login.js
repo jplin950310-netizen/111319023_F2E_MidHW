@@ -4,6 +4,12 @@ import {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { 
+  getFirestore, 
+  doc, 
+  setDoc, 
+  getDoc 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA8i_OQPaYxPxnlyw8PBaaiT98RPCzblQg",
@@ -17,6 +23,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const container = document.querySelector(".login-container");
 const form = document.getElementById("loginForm");
@@ -57,7 +64,7 @@ form.addEventListener("submit", (e) => {
       container.style.boxShadow = "0 0 40px white";
 
       setTimeout(() => {
-        window.location.href = "./index.html";
+        window.location.href = "./index2.html";
       }, 1200);
     })
     .catch((error) => {
@@ -94,12 +101,22 @@ signUpBtn.addEventListener("click", () => {
   signUpBtn.disabled = true;
 
   createUserWithEmailAndPassword(auth, email, password)
-    .then(() => {
+    .then(async (userCredential) => {
+      const user = userCredential.user;
+      
+      // 創建用戶個人資料文件
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        displayName: user.email.split('@')[0], // 預設顯示名稱為 email 前綴
+        avatarUrl: "", // 預設無頭像
+        createdAt: new Date(),
+      });
+
       message.textContent = "帳號建立成功！";
       container.style.boxShadow = "0 0 40px white";
 
       setTimeout(() => {
-        window.location.href = "./index.html";
+        window.location.href = "./index2.html";
       }, 1200);
     })
     .catch((error) => {
@@ -206,7 +223,7 @@ function scrambleFlow(elements, speed = 30, maxScramble = 10, onComplete = null)
 
 scrambleFlow([
   { el: document.getElementById("loginTitle"), text: "SIGN IN" },
-  { el: document.getElementById("usernameLabel"), text: "username" },
+  { el: document.getElementById("usernameLabel"), text: "email" },
   { el: document.getElementById("passwordLabel"), text: "password" },
   { el: loginBtn, text: "LOGIN" },
   { el: signUpBtn, text: "SIGN UP" },

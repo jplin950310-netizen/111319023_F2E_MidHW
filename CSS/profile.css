@@ -3,8 +3,14 @@
 :root {
   --accent: #fff;
   --muted: #cfcfcf;
+  display: inline-block;
+  line-height: 1;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
   --glass: rgba(255,255,255,0.04);
 }
+
 body {
   background-image: url('../images/background.jpg');
   background-size: cover;
@@ -16,13 +22,9 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background-attachment: fixed; 
-}
+  }
 
-main {
-  flex: 1;
-}
-
-/* Header */
+/* Header - same as index.html */
 .site-header {
   padding: 24px 28px 12px; 
 }
@@ -37,6 +39,7 @@ main {
   align-items: flex-start;
   text-align: left;
 }
+
 .site-title  {
   font-family: "Bytesized", sans-serif;
   color: #fff;
@@ -49,7 +52,6 @@ main {
   text-rendering: geometricPrecision;
 }
 
-
 .site-title a {
   color: #fff;
   text-decoration: none;
@@ -57,10 +59,7 @@ main {
   line-height: 1;
 }
 
-.loginbtn a {
-  color: #fff;
-}
-.loginbtn { 
+.loginbtn {
   font-family: "Bytesized";
   color: #fff;
   font-weight: 600;
@@ -80,11 +79,6 @@ main {
 .loginbtn a {
   color: #fff;
   text-decoration: none;
-  display: inline-block;
-  line-height: 1;
-  -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: geometricPrecision;
 }
 
 .loginbtn img {
@@ -95,7 +89,7 @@ main {
   object-fit: cover;
 }
 
-.loginbtn :hover{
+.loginbtn:hover {
   text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
@@ -105,7 +99,7 @@ main {
 }
 
 .hamburger {
-  display: none;  /* 桌面模式隱藏，不占位 */
+  display: none;
 }
 
 .main-nav {
@@ -149,7 +143,6 @@ main {
   display: inline-block;
 }
 
-/* 滑鼠移動文字變色 */
 .main-nav a:hover {
   color: rgb(255, 255, 255);
   text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
@@ -171,7 +164,6 @@ main {
   z-index: 4;
 }
 
-/* Prevent dropdown items from becoming puzzle pieces on small widths */
 .dropdown a {
   white-space: nowrap;
 }
@@ -198,25 +190,8 @@ main {
   visibility: visible;
 }
 
-/* ------------------------------
-   Forum page layout (keep below)
-   ------------------------------ */
-
-/* Forum content: use a normal, readable font (keep nav/header pixel font) */
-.forum-panel,
-.forum-panel input,
-.forum-panel textarea,
-.forum-panel button {
-  font-family: "Segoe UI", "Noto Sans TC", system-ui, -apple-system, Arial, sans-serif;
-}
-
-/* main panel */
-@keyframes glow {
-  from { box-shadow: 0 0 10px white, 0 0 25px rgba(255,255,255,0.8); }
-  to { box-shadow: 0 0 20px white, 0 0 40px rgba(255,255,255,1); }
-}
-
-.forum-main {
+/* Profile Page Styles */
+.profile-main {
   flex: 1;
   display: flex;
   align-items: center;
@@ -224,220 +199,167 @@ main {
   padding: 40px 20px;
 }
 
-.forum-panel {
+.profile-section {
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.75));
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 8px 40px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.03) inset;
-  padding: 24px;
+  padding: 32px;
   border-radius: 12px;
   backdrop-filter: blur(4px);
-  overflow: hidden;
   animation: glow 2s infinite alternate;
+  font-family: "Segoe UI", "Noto Sans TC", system-ui, sans-serif;
 }
 
-/* title */
-.forum-title {
+.profile-title {
   font-family: "Bytesized", monospace;
   text-align: center;
-  font-size: 28px;
-  margin-bottom: 16px;
+  font-size: 32px;
+  margin-bottom: 24px;
   color: var(--accent);
   letter-spacing: 1px;
 }
 
-/* form */
-.message-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 18px;
+.login-prompt {
+  text-align: center;
+  padding: 40px 20px;
 }
 
-.message-form .row {
-  display: flex;
-  gap: 10px;
+.login-prompt p {
+  font-size: 18px;
+  color: #ddd;
+  margin-bottom: 20px;
 }
 
-.message-form input[type="text"] {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: var(--glass);
-  color: var(--accent);
-  outline: none;
-  border: #fff solid 1px;
-}
-
-.message-form textarea {
-  resize: vertical;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(0,0,0,0.45);
-  color: var(--accent);
-  min-height: 80px;
-  border: #fff solid 1px;
-}
-
-.form-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.form-actions .hint {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-#submit-btn {
+.login-link {
+  display: inline-block;
   background: #111;
   border: 1px solid #fff;
   color: var(--accent);
-  padding: 8px 16px;
+  padding: 12px 24px;
   border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  text-decoration: none;
+  transition: 0.3s;
 }
 
-#submit-btn:hover {
+.login-link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  box-shadow: 0 10px 30px rgba(255,255,255,0.3);
 }
 
-/* messages list */
-.messages-wrap {
-  max-height: min(480px, calc(100vh - 360px));
-  overflow: auto;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.04);
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-/* Actual message card markup (rendered by JS as `article.msg`) */
-.msg {
-  padding: 12px 14px;
-  border-radius: 8px;
-  background: rgba(0,0,0,0.45);
-  margin-bottom: 18px; /* increase space between posts */
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-/* Keep header layout consistent with existing styles */
-.msg-head {
+.profile-info {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  gap: 24px;
+  padding: 20px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
-.msg-who {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.profile-avatar-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
 }
 
-/* Message avatars */
-.msg-avatar {
-  width: 40px;
-  height: 40px;
+.profile-avatar-img {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  border: 1.5px solid #fff;
+  border: 3px solid #fff;
   object-fit: cover;
 }
 
-.msg-avatar-placeholder {
-  width: 40px;
-  height: 40px;
+.profile-avatar-placeholder {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  border: 1.5px solid #fff;
-  background: #444;
+  border: 3px solid #fff;
+  background: #333;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 48px;
   color: #fff;
   font-weight: bold;
 }
 
-.msg-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+.profile-details {
+  flex: 1;
 }
 
-.msg-user {
-  font-weight: 700;
+.profile-details p {
+  margin: 10px 0;
+  color: #ddd;
+  font-size: 16px;
+}
+
+.profile-details strong {
   color: #fff;
 }
 
-.msg-subject {
-  color: var(--muted);
-  font-size: 13px;
+.profile-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.msg-time {
-  font-size: 12px;
-  color: #aaa;
+.edit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.message-card {
-  padding: 12px 14px;
+.edit-group label {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.edit-group input {
+  padding: 10px 12px;
   border-radius: 8px;
-  background: rgba(0,0,0,0.45);
-  margin-bottom: 10px;
-  border: 1px solid rgba(255,255,255,0.03);
+  border: 1px solid #fff;
+  background: var(--glass);
+  color: var(--accent);
+  outline: none;
+  font-size: 14px;
 }
 
-.msg-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
+.edit-group button {
+  background: #111;
+  border: 1px solid #fff;
+  color: var(--accent);
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
 }
 
-.msg-head .meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.edit-group button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255,255,255,0.3);
 }
 
-.name {
-  font-weight: 700;
-  color: #fff;
-  font-family: "Bytesized", monospace;
+.logout-btn {
+  background: #d32f2f !important;
+  border: 1px solid #fff !important;
+  color: #fff !important;
+  margin-top: 8px;
 }
 
-.subject {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.time {
-  font-size: 12px;
-  color: #aaa;
-}
-
-.msg-content {
-  color: #e6e6e6;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-/* small states */
-.empty,
-.loading {
-  text-align: center;
-  color: var(--muted);
-  padding: 30px 10px;
+.logout-btn:hover {
+  background: #b71c1c !important;
 }
 
 /* Footer */
@@ -449,7 +371,6 @@ main {
   text-align: start;
   padding: 0;
 }
-
 
 .footer-bar {
   max-width: 1440px;
@@ -466,7 +387,7 @@ main {
   color: #fff;
   font-size: 14px;
   text-align: center;
-  flex: 1;                 /*平分空間*/
+  flex: 1;
 }
 
 .footer-img {
@@ -486,64 +407,7 @@ main {
   animation: spin 1s linear infinite;
 }
 
-/* 字型設定：Bytesized 由 forum.html 的 Google Fonts 載入；此處只指定使用順序 */
-body {
-  font-family: "Bytesized", "Noto Sans TC", "Segoe UI", sans-serif;
-}
-
-/* responsive */
-@media (max-width: 720px) {
-  .header-inner {
-    flex-direction: row;
-    align-items: center;
-    text-align: left;
-    gap: 12px;
-  }
-
-  .site-title {
-    font-size: 28px;
-  }
-
-  .loginbtn {
-    font-size: 20px;
-    padding: 6px 10px;
-  }
-
-  .forum-panel {
-    padding: 18px;
-    border-radius: 10px;
-  }
-
-  .forum-title {
-    font-size: 24px;
-  }
-
-  .messages-wrap {
-    max-height: min(320px, calc(100vh - 380px));
-  }
-
-  .message-form .row {
-    flex-direction: column;
-  }
-
-  .form-actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  #submit-btn {
-    width: 100%;
-  }
-  .main-ul > li > a {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
-  }
-  
-}
-
-/* Match index.html mobile header/login behavior */
+/* Responsive */
 @media (max-width: 1161px) {
   .header-inner {
     flex-direction: row;
@@ -576,12 +440,7 @@ body {
     cursor: pointer;
     margin-left: auto;
   }
-  .main-ul > li > a {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
-  }
-  /* Mobile nav: hidden by default, shown when JS toggles `.open` */
+
   .main-nav {
     display: none;
     max-width: 1100px;
@@ -608,7 +467,12 @@ body {
     display: inline-block;
   }
 
-  /* Dropdowns in mobile: keep them in flow so they don't overflow weirdly */
+  .main-ul > li > a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
   .dropdown {
     position: static;
     min-width: 0;
@@ -634,7 +498,6 @@ body {
     visibility: hidden;
   }
 
-  /* Enable dropdown expansion via adding `.open` on the LI (JS-friendly) */
   .main-nav li.open > .dropdown {
     display: flex;
     opacity: 1;
@@ -643,10 +506,7 @@ body {
     gap: 6px;
     padding: 6px 0;
   }
-}
 
-/* responsive footer - match index.html behavior */
-@media (max-width: 1161px) {
   .footer-bar {
     flex-direction: column;
     height: auto;
@@ -657,5 +517,33 @@ body {
   .footer-img {
     margin-left: 0;
     margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 720px) {
+  .profile-section {
+    padding: 20px;
+  }
+
+  .profile-title {
+    font-size: 26px;
+  }
+
+  .profile-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .profile-avatar-wrap {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile-avatar-img,
+  .profile-avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    font-size: 36px;
   }
 }
