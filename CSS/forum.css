@@ -181,6 +181,11 @@ main {
    ------------------------------ */
 
 /* main panel */
+@keyframes glow {
+  from { box-shadow: 0 0 10px white, 0 0 25px rgba(255,255,255,0.8); }
+  to { box-shadow: 0 0 20px white, 0 0 40px rgba(255,255,255,1); }
+}
+
 .forum-main {
   flex: 1;
   display: flex;
@@ -199,6 +204,7 @@ main {
   border-radius: 12px;
   backdrop-filter: blur(4px);
   overflow: hidden;
+  animation: glow 2s infinite alternate;
 }
 
 /* title */
@@ -233,6 +239,7 @@ main {
   background: var(--glass);
   color: var(--accent);
   outline: none;
+  border: #fff solid 1px;
 }
 
 .message-form textarea {
@@ -243,6 +250,7 @@ main {
   background: rgba(0,0,0,0.45);
   color: var(--accent);
   min-height: 80px;
+  border: #fff solid 1px;
 }
 
 .form-actions {
