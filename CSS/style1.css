@@ -12,6 +12,10 @@ body {
   background-attachment: fixed; 
 }
 
+main {
+  flex: 1;
+}
+
 /* Header */
 .site-header {
   padding: 24px 28px 12px; 
@@ -19,12 +23,14 @@ body {
 
 .header-inner {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
   gap: 24px;
   max-width: 1100px;
   margin: 0 auto;
 }
-.site-title {
+
+.site-title  {
   font-family: "Bytesized";
   color: #fff;
   font-weight: 600;
@@ -35,18 +41,48 @@ body {
   color: #fff;
 }
 
+.loginbtn a {
+  color: #fff;
+}
+
+.loginbtn { 
+  font-family: "Bytesized";
+  color: #fff;
+  font-weight: 600;
+  font-size: 26px;
+  align-self: center;
+  margin-right: 20px;
+  border-radius: 20%;
+  border: #fff;
+  padding: 6px 12px;
+  background-color: #3d3b3b;
+}
+
+.loginbtn :hover{
+  text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
 @keyframes glow {
   from { box-shadow: 0 0 10px white, 0 0 25px rgba(255,255,255,0.8); }
   to { box-shadow: 0 0 20px white, 0 0 40px rgba(255,255,255,1); }
 }
 
+.hamburger {
+  display: none;  /* 桌面模式隱藏，不占位 */
+}
+
 .main-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 20px;
   list-style: none;
   display: flex;
   gap: 60px;
-  padding: 4px 20px;
+  padding: 4px 5px;
   border-radius: 4px;
-  align-items: center;
   border: 1.5px solid white;
   animation: glow 2s infinite alternate;
   background-color: black;
@@ -73,6 +109,7 @@ body {
   transition: color 0.3s, text-shadow 0.3s;
 }
 
+/* 滑鼠移動文字變色 */
 .main-nav a:hover {
   color: rgb(255, 255, 255);
   text-shadow: 0 0 10px rgb(255, 255, 255), 0 0 30px rgba(255, 255, 255, 0.5);
@@ -349,6 +386,7 @@ body {
   .main-nav li {
     width: 100%;
   }
+
   .main-ul  li > a{
     font-size: 20px ;   /* 標題大小 */
     text-decoration: underline;
@@ -477,9 +515,11 @@ body {
     right: 20px;
     z-index: 10000;
   }
+
   .site-title {
     font-size: 48px;        /* 手機版標題稍微縮小以免破版 */
   }
+
   .main-nav {
     display: none;
     position: fixed;
@@ -495,8 +535,8 @@ body {
     gap: 20px;
     padding-left: 24px;
     z-index: 9999;
-    
   }
+
   .main-nav.open { display: flex; }
 
   .main-ul {
