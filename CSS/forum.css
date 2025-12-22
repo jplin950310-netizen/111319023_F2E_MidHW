@@ -34,7 +34,8 @@ main {
   gap: 24px;
   max-width: 1100px;
   margin: 0 auto;
-  align-items: center;
+  align-items: flex-start;
+  text-align: left;
 }
 .site-title  {
   font-family: "Bytesized", sans-serif;
@@ -83,15 +84,6 @@ main {
 
 .hamburger {
   display: none;  /* 桌面模式隱藏，不占位 */
-  margin-left: auto;
-  background: transparent;
-  border: 1.5px solid #fff;
-  color: #fff;
-  font-size: 26px;
-  line-height: 1;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
 .main-nav {
@@ -369,7 +361,10 @@ body {
 /* responsive */
 @media (max-width: 720px) {
   .header-inner {
-    padding: 0 12px;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 12px;
   }
 
   .site-title {
@@ -407,6 +402,12 @@ body {
   #submit-btn {
     width: 100%;
   }
+  .main-ul > li > a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  
 }
 
 /* Match index.html mobile header/login behavior */
@@ -419,7 +420,7 @@ body {
   }
 
   .site-title {
-    font-size: 48px;
+    font-size: 40px;
   }
 
   .loginbtn {
@@ -432,8 +433,21 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    background: transparent;
+    border: 1.5px solid #fff;
+    color: #fff;
+    font-size: 26px;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: auto;
   }
-
+  .main-ul > li > a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
   /* Mobile nav: hidden by default, shown when JS toggles `.open` */
   .main-nav {
     display: none;
@@ -457,6 +471,8 @@ body {
     font-size: 22px;
     padding: 10px 12px;
     width: 100%;
+    text-align: left;
+    display: inline-block;
   }
 
   /* Dropdowns in mobile: keep them in flow so they don't overflow weirdly */
@@ -476,6 +492,7 @@ body {
     width: 100%;
     padding-left: 26px;
     font-size: 18px;
+    white-space: nowrap;
   }
 
   .main-nav li:hover > .dropdown {

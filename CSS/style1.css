@@ -304,128 +304,110 @@ main {
   animation: spin 1s linear infinite;
 }
 
-/* 漢堡選單按鈕 */
-.menu-toggle {
-  display: none;
-}
-
-.menu-toggle:checked + .hamburger + .main-nav {
-  display: flex;
-}
-
-.hamburger {
-  display: none;
-  font-size: 28px;
-  color: #fff;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  cursor: pointer;
-}
-
+/* 漢堡選單按鈕（由 JS 切換 .main-nav.open） */
 /* 手機版 RWD */
 @media (max-width: 1161px) {
 
-  
+  /* Mobile header: keep login + hamburger on same row like forum */
   .header-inner {
-    flex-direction: column; 
-    align-items: center;    /* 確保所有內容在手機版水平居中 */
-    text-align: center;
-  }
-
-  .loginbtn {
-    margin-right: 0;        /* 移除桌面版設定的右邊距 */
-    align-self: center;     /* 強制自己在容器中水平置中 */
-    font-size: 28px;        /* 稍微縮小手機版的字體 */
-    margin-top: 10px;       /* 增加一點跟標題之間的間隔 */
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 12px;
   }
 
   .site-title {
-    font-size: 48px;        /* 手機版標題稍微縮小以免破版 */
+    font-size: 40px;
+  }
+
+  .loginbtn {
+    margin-right: 0;
+    align-self: center;
+    font-size: 24px;
   }
 
   .hamburger {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: transparent;
-    border: none;
-    font-size: 28px;
+    border: 1.5px solid #fff;
     color: #fff;
+    font-size: 26px;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 8px;
     cursor: pointer;
-    position: fixed;   /* 固定在右上角 */
-    top: 20px;
-    right: 20px;
-    z-index: 10000;    /* 確保在最上層，能點擊 */
+    margin-left: auto;
   }
 
-  /* 初始隱藏導航選單 */
+  /* Mobile nav: hidden by default, shown when JS toggles `.open` */
   .main-nav {
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
+    max-width: 1100px;
+    margin: 12px auto 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.95);
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 20px;
-    z-index: 9999;
   }
 
   .main-nav.open {
-    display: flex;
+    display: block;
   }
 
   .main-ul {
     flex-direction: column;
-    gap: 0px;
-    width: 100%;
-    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 10px;
+    align-items: stretch;
   }
 
   .main-nav a {
-    font-size: 18px;
+    font-size: 22px;
     padding: 10px 12px;
-    text-align: left;
-  }
-  
-  .main-nav li {
     width: 100%;
+    text-align: left;
+    display: inline-block;
   }
 
-  .main-ul  li > a{
-    font-size: 20px ;   /* 標題大小 */
+  /* 底線只加在「頂層標題」(不影響 dropdown item) */
+  .main-ul > li > a {
     text-decoration: underline;
-    text-decoration-thickness: 2px;   /* 可選：調整粗細 */
-    text-underline-offset: 4px;       /* 可選：文字與底線間距 */
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 
-  /* 手機沒有 hover → 下拉選單改成永遠顯示 */
+  /* Dropdowns in mobile: JS 點擊展開/收合 (li.open) */
   .dropdown {
     position: static;
-    display: flex;
-    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 6px;
+    display: none;
     opacity: 1;
     visibility: visible;
-    gap: 0px;
-    padding-left: 0;
-    min-width: unset;
-    border: none;
-    background: transparent;
-    align-items: flex-start;    /* dropdown靠左對齊 */
   }
 
-  .dropdown li a {
-    font-size: 16px;
-    padding: 6px 10px;
-    
+  .dropdown a {
+    display: block;
+    width: 100%;
+    padding-left: 26px;
+    font-size: 18px;
   }
 
-  /* 移除 hover 控制 */
+  /* 手機不靠 hover 展開 dropdown */
   .main-nav li:hover > .dropdown {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .main-nav li.open > .dropdown {
     display: flex;
+    opacity: 1;
+    visibility: visible;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px 0;
   }
 
   .carousel {
@@ -443,142 +425,5 @@ main {
     max-width: 90%;
     max-width: 90%;
   }
-
-  .carousel-track img.active {
-    width: 100%;
-    height: 100%;
-  }
-
-  .carousel-track img.left {
-    transform: translateX(-120px) scale(0.6);
-    transform: translateY(-120px) scale(0.6);
-  }
-
-  .carousel-track img.right {
-    transform: translateX(120px) scale(0.6);
-    transform: translateY(120px) scale(0.6);
-  }
-
-  .nav-btn {
-    top: 90%;
-    font-size: 24px;
-  }
-
-  .characters-wrap {
-    margin-top: 40px;
-  }
-
-  .character-row {
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .char-box {
-    width: 64px;
-    height: 180px;
-  }
-
-  .char-img,
-  .char-img-special {
-    width: 50px;
-    height: 120px;
-  }
-
-   .footer-bar {
-    flex-direction: column;
-    height: auto;
-    padding: 10px 0;
-    gap: 6px;
-  }
-
-  .footer-img {
-    margin-left: 0;
-    margin-bottom: 6px;
-  }
-
-  .footer-bar a {
-    font-size: 12px;
-  }
 }
-
-/* >>> HAMBURGER CONSISTENCY SNIPPET START */
-@media (max-width:1028px) {
-  .header-inner {
-    flex-direction: column; 
-    align-items: center;    /* 確保所有內容在手機版水平居中 */
-    text-align: center;
-  }
-  
-  .hamburger {
-    display: block;
-    background: transparent;
-    border: none;
-    font-size: 28px;
-    color: #fff;
-    cursor: pointer;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 10000;
-  }
-
-  .site-title {
-    font-size: 48px;        /* 手機版標題稍微縮小以免破版 */
-  }
-
-  .main-nav {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.95);
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    text-align: left;
-    gap: 20px;
-    padding-left: 24px;
-    z-index: 9999;
-  }
-
-  .main-nav.open { display: flex; }
-
-  .main-ul {
-    flex-direction: column;
-    gap: 0;
-    width: 100%;
-    align-items: flex-start;
-  }
-
-  .main-nav a {
-    font-size: 18px;
-    padding: 10px 12px;
-    text-align: left;
-  }
-
-  .main-ul li > a {
-    font-size: 20px;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
-  }
-
-  .dropdown {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    opacity: 1;
-    visibility: visible;
-    padding-left: 0;
-    min-width: unset;
-    border: none;
-    background: transparent;
-    align-items: flex-start;
-  }
-}
-/* <<< HAMBURGER CONSISTENCY SNIPPET END */
 
