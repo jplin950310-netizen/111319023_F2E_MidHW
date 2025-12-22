@@ -281,6 +281,11 @@ body {
 
 /* 手機版 RWD */
 @media (max-width:1028px) {
+  .header-inner {
+    flex-direction: column; 
+    align-items: center;    /* 確保所有內容在手機版水平居中 */
+    text-align: center;
+  }
   /* 顯示漢堡按鈕 */
   .hamburger {
     display: block;
@@ -294,7 +299,9 @@ body {
     right: 20px;
     z-index: 10000;    /* 確保在最上層，能點擊 */
   }
-
+  .site-title {
+    font-size: 48px;        /* 手機版標題稍微縮小以免破版 */
+  }
   /* 初始隱藏導航選單 */
   .main-nav {
     display: none;
@@ -305,9 +312,11 @@ body {
     height: 100%;
     background-color: rgba(0,0,0,0.95);
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
     gap: 20px;
+    padding-left: 24px;
     z-index: 9999;
   }
 
@@ -317,57 +326,37 @@ body {
 
   .main-ul {
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
     width: 100%;
+    align-items: flex-start;
   }
 
   .main-nav a {
     font-size: 18px;
     padding: 10px 12px;
-    text-align: center;
+    text-align: left;
   }
 
-  .main-nav li {
-    width: 100%;
+  .main-ul li > a {
+    font-size: 20px;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 
-  /* 手機沒有 hover → 下拉選單改成永遠顯示 */
   .dropdown {
     position: static;
     display: flex;
     flex-direction: column;
     opacity: 1;
     visibility: visible;
-    gap: 10px;
+    gap: 0;
     padding-left: 0;
     min-width: unset;
     border: none;
     background: transparent;
-  }
-
-  .dropdown li a {
-    font-size: 16px;
-    padding: 6px 10px;
-  }
-
-  /* 移除 hover 控制 */
-  .main-nav li:hover > .dropdown {
-    display: flex;
-  }
-
-  .footer-bar {
-    flex-direction: column;
-    height: auto;
-    padding: 10px 0;
-    gap: 6px;
-  }
-
-  .footer-img {
-    margin-left: 20px;
-    margin-bottom: 6px;
-  }
-
-  .footer-bar a {
-    font-size: 12px;
+    align-items: flex-start;
   }
 }
+
+/* ...existing code... */

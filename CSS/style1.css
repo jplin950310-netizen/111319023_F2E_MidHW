@@ -280,8 +280,26 @@ body {
 }
 
 /* 手機版 RWD */
-@media (max-width:1028px) {
-  /* 顯示漢堡按鈕 */
+@media (max-width: 1028px) {
+
+  
+  .header-inner {
+    flex-direction: column; 
+    align-items: center;    /* 確保所有內容在手機版水平居中 */
+    text-align: center;
+  }
+
+  .loginbtn {
+    margin-right: 0;        /* 移除桌面版設定的右邊距 */
+    align-self: center;     /* 強制自己在容器中水平置中 */
+    font-size: 28px;        /* 稍微縮小手機版的字體 */
+    margin-top: 10px;       /* 增加一點跟標題之間的間隔 */
+  }
+
+  .site-title {
+    font-size: 48px;        /* 手機版標題稍微縮小以免破版 */
+  }
+
   .hamburger {
     display: block;
     background: transparent;
@@ -305,8 +323,8 @@ body {
     height: 100%;
     background-color: rgba(0,0,0,0.95);
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     gap: 20px;
     z-index: 9999;
   }
@@ -317,18 +335,25 @@ body {
 
   .main-ul {
     flex-direction: column;
-    gap: 10px;
+    gap: 0px;
     width: 100%;
+    align-items: flex-start;
   }
 
   .main-nav a {
     font-size: 18px;
     padding: 10px 12px;
-    text-align: center;
+    text-align: left;
   }
-
+  
   .main-nav li {
     width: 100%;
+  }
+  .main-ul  li > a{
+    font-size: 20px ;   /* 標題大小 */
+    text-decoration: underline;
+    text-decoration-thickness: 2px;   /* 可選：調整粗細 */
+    text-underline-offset: 4px;       /* 可選：文字與底線間距 */
   }
 
   /* 手機沒有 hover → 下拉選單改成永遠顯示 */
@@ -338,16 +363,18 @@ body {
     flex-direction: column;
     opacity: 1;
     visibility: visible;
-    gap: 10px;
+    gap: 0px;
     padding-left: 0;
     min-width: unset;
     border: none;
     background: transparent;
+    align-items: flex-start;    /* dropdown靠左對齊 */
   }
 
   .dropdown li a {
     font-size: 16px;
     padding: 6px 10px;
+    
   }
 
   /* 移除 hover 控制 */
@@ -355,7 +382,65 @@ body {
     display: flex;
   }
 
-  .footer-bar {
+  .carousel {
+    width: 500PX;
+    height: 240px;
+    margin: 20px auto;
+  }
+
+  .carousel-track {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-track img {
+    max-width: 90%;
+    max-width: 90%;
+  }
+
+  .carousel-track img.active {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-track img.left {
+    transform: translateX(-120px) scale(0.6);
+    transform: translateY(-120px) scale(0.6);
+  }
+
+  .carousel-track img.right {
+    transform: translateX(120px) scale(0.6);
+    transform: translateY(120px) scale(0.6);
+  }
+
+  .nav-btn {
+    top: 90%;
+    font-size: 24px;
+  }
+
+  .characters-wrap {
+    margin-top: 40px;
+  }
+
+  .character-row {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .char-box {
+    width: 64px;
+    height: 180px;
+  }
+
+  .char-img,
+  .char-img-special {
+    width: 50px;
+    height: 120px;
+  }
+
+   .footer-bar {
     flex-direction: column;
     height: auto;
     padding: 10px 0;
@@ -363,7 +448,7 @@ body {
   }
 
   .footer-img {
-    margin-left: 20px;
+    margin-left: 0;
     margin-bottom: 6px;
   }
 
@@ -371,3 +456,81 @@ body {
     font-size: 12px;
   }
 }
+
+/* >>> HAMBURGER CONSISTENCY SNIPPET START */
+@media (max-width:1028px) {
+  .header-inner {
+    flex-direction: column; 
+    align-items: center;    /* 確保所有內容在手機版水平居中 */
+    text-align: center;
+  }
+  
+  .hamburger {
+    display: block;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+  }
+  .site-title {
+    font-size: 48px;        /* 手機版標題稍微縮小以免破版 */
+  }
+  .main-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.95);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+    padding-left: 24px;
+    z-index: 9999;
+    
+  }
+  .main-nav.open { display: flex; }
+
+  .main-ul {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .main-nav a {
+    font-size: 18px;
+    padding: 10px 12px;
+    text-align: left;
+  }
+
+  .main-ul li > a {
+    font-size: 20px;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
+  .dropdown {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    visibility: visible;
+    padding-left: 0;
+    min-width: unset;
+    border: none;
+    background: transparent;
+    align-items: flex-start;
+  }
+}
+/* <<< HAMBURGER CONSISTENCY SNIPPET END */
+
