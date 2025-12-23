@@ -65,7 +65,7 @@ function initLoginButton() {
           loginBtnLink.innerHTML = `<img src="${userProfile.avatarUrl}" alt="Profile">`;
         } else {
           // 無頭像：顯示"匿名"
-          loginBtnLink.textContent = "匿名";
+          loginBtnLink.textContent = "anonymous";
         }
         loginBtnLink.href = "./profile.html";
       }

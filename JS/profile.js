@@ -10,6 +10,12 @@ import {
   getDoc,
   setDoc,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA8i_OQPaYxPxnlyw8PBaaiT98RPCzblQg",
@@ -21,7 +27,7 @@ const firebaseConfig = {
   measurementId: "G-QX27493210",
 };
 
-let app, auth, db;
+let app, auth, db, storage;
 
 try {
   app = initializeApp(firebaseConfig);
@@ -32,6 +38,13 @@ try {
 
 auth = getAuth(app);
 db = getFirestore(app);
+// 不指定 bucket，Firebase 會自動用 firebaseConfig 的 storageBucket
+try {
+  storage = getStorage(app);
+  console.log("Storage initialized successfully");
+} catch (e) {
+  console.error("Storage initialization failed:", e);
+}
 
 let currentUser = null;
 let currentUserProfile = null;
@@ -55,9 +68,9 @@ function initProfile() {
   const profileAvatar = document.getElementById("profile-avatar");
   const profileAvatarPlaceholder = document.getElementById("profile-avatar-placeholder");
   const updateDisplayNameBtn = document.getElementById("update-displayName");
-  const updateAvatarBtn = document.getElementById("update-avatar");
+  const uploadAvatarBtn = document.getElementById("upload-avatar");
   const newDisplayNameInput = document.getElementById("new-displayName");
-  const newAvatarInput = document.getElementById("new-avatar");
+  const avatarFileInput = document.getElementById("avatar-file");
   const logoutBtn = document.getElementById("logout-btn");
   const loginBtnLink = document.getElementById("loginBtnLink");
 
@@ -131,6 +144,7 @@ function initProfile() {
           displayName: newName,
         }, { merge: true });
 
+        currentUserProfile = currentUserProfile || {};
         currentUserProfile.displayName = newName;
         profileDisplayName.textContent = newName;
         newDisplayNameInput.value = "";
@@ -147,41 +161,68 @@ function initProfile() {
     });
   }
 
-  // 更新頭像
-  if (updateAvatarBtn && newAvatarInput) {
-    updateAvatarBtn.addEventListener("click", async () => {
+  // 上傳並更新頭像
+  if (uploadAvatarBtn && avatarFileInput) {
+    uploadAvatarBtn.addEventListener("click", async () => {
       if (!currentUser) return;
 
-      const newAvatar = newAvatarInput.value.trim();
-      if (!newAvatar) {
-        alert("請輸入頭像網址");
+      const file = avatarFileInput.files?.[0];
+      if (!file) {
+        alert("請選擇要上傳的圖片");
         return;
       }
 
       try {
+        uploadAvatarBtn.disabled = true;
+        const originalText = uploadAvatarBtn.textContent;
+        uploadAvatarBtn.textContent = "上傳中...";
+
+        const safeName = file.name.replace(/[^a-zA-Z0-9_.-]/g, "_");
+        const avatarRef = ref(storage, `avatars/${currentUser.uid}/${Date.now()}_${safeName}`);
+        console.log("Starting upload to:", avatarRef.fullPath);
+        const snapshot = await uploadBytes(avatarRef, file);
+        console.log("Upload complete, getting download URL...");
+        const downloadUrl = await getDownloadURL(snapshot.ref);
+        console.log("Download URL obtained:", downloadUrl);
+
         await setDoc(doc(db, "users", currentUser.uid), {
-          avatarUrl: newAvatar,
+          avatarUrl: downloadUrl,
         }, { merge: true });
 
-        currentUserProfile.avatarUrl = newAvatar;
+        currentUserProfile = currentUserProfile || {};
+        currentUserProfile.avatarUrl = downloadUrl;
         if (profileAvatar) {
-          profileAvatar.src = newAvatar;
+          profileAvatar.src = downloadUrl;
           profileAvatar.style.display = "block";
         }
         if (profileAvatarPlaceholder) {
           profileAvatarPlaceholder.style.display = "none";
         }
-        
-        // 更新 loginbtn
+
         const loginBtnLink = document.getElementById("loginBtnLink");
         if (loginBtnLink) {
-          loginBtnLink.innerHTML = `<img src="${newAvatar}" alt="Profile">`;
+          loginBtnLink.innerHTML = `<img src="${downloadUrl}" alt="Profile">`;
         }
-        
-        newAvatarInput.value = "";
+
+        avatarFileInput.value = "";
         alert("頭像已更新！");
+        uploadAvatarBtn.textContent = originalText;
+        uploadAvatarBtn.disabled = false;
       } catch (e) {
-        alert(`更新失敗：${e.message}`);
+        console.error("Avatar upload/update failed:", e);
+        console.error("Error code:", e.code);
+        console.error("Error message:", e.message);
+        let errorMsg = e.message || "未知錯誤";
+        if (e.code === "storage/unauthorized") {
+          errorMsg = "無權上傳：請檢查 Firebase Storage 規則";
+        } else if (e.code === "storage/invalid-argument") {
+          errorMsg = "檔案或路徑無效";
+        } else if (e.code === "storage/retry-limit-exceeded") {
+          errorMsg = "上傳逾時，請檢查網路";
+        }
+        alert(`更新失敗：${errorMsg}`);
+        uploadAvatarBtn.disabled = false;
+        uploadAvatarBtn.textContent = originalText || "上傳並更新";
       }
     });
   }
