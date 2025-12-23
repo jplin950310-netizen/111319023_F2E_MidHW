@@ -51,6 +51,7 @@ function initLoginButton() {
   // 支援有 id 或只有 .loginbtn a 的頁面
   const loginBtnLink = document.getElementById("loginBtnLink") || document.querySelector(".loginbtn a");
   if (!loginBtnLink) return;
+  const loginBtn = loginBtnLink.closest(".loginbtn");
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
@@ -69,14 +70,17 @@ function initLoginButton() {
 
       if (avatarUrl) {
         loginBtnLink.innerHTML = `<img src="${avatarUrl}" alt="${displayName}">`;
+        if (loginBtn) loginBtn.classList.add("has-avatar");
       } else {
         loginBtnLink.textContent = displayName;
+        if (loginBtn) loginBtn.classList.remove("has-avatar");
       }
       loginBtnLink.href = "./profile.html";
     } else {
       // 未登入
       loginBtnLink.textContent = "LOGIN";
       loginBtnLink.href = "./signin.html";
+      if (loginBtn) loginBtn.classList.remove("has-avatar");
     }
   });
 }

@@ -62,8 +62,8 @@ main {
 }
 
 .loginbtn img {
-  width: 40px;
-  height: 40px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   border: 2px solid #fff;
   object-fit: cover;
@@ -88,6 +88,14 @@ main {
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
+}
+
+.loginbtn.has-avatar {
+  background-color: transparent;
+  padding: 0;
+  min-width: auto;
+  border: none;
+  box-shadow: none;
 }
 
 .loginbtn :hover{
@@ -345,9 +353,14 @@ main {
   }
 
   .loginbtn {
-    margin-right: 0;
+    margin: 0 auto;
     align-self: center;
     font-size: 24px;
+  }
+
+  .loginbtn img {
+    width: 50px;
+    height: 50px;
   }
 
   .hamburger {

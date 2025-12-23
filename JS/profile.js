@@ -73,6 +73,7 @@ function initProfile() {
   const avatarFileInput = document.getElementById("avatar-file");
   const logoutBtn = document.getElementById("logout-btn");
   const loginBtnLink = document.getElementById("loginBtnLink");
+  const loginBtn = loginBtnLink ? loginBtnLink.closest(".loginbtn") : null;
 
   // 監聽登入狀態
   onAuthStateChanged(auth, async (user) => {
@@ -119,8 +120,10 @@ function initProfile() {
 
           if (avatarUrl) {
             loginBtnLink.innerHTML = `<img src="${avatarUrl}" alt="${displayName}">`;
+            if (loginBtn) loginBtn.classList.add("has-avatar");
           } else {
             loginBtnLink.textContent = displayName;
+            if (loginBtn) loginBtn.classList.remove("has-avatar");
           }
           loginBtnLink.href = "./profile.html";
         }
@@ -133,6 +136,7 @@ function initProfile() {
       if (loginBtnLink) {
         loginBtnLink.textContent = "LOGIN";
         loginBtnLink.href = "./signin.html";
+        if (loginBtn) loginBtn.classList.remove("has-avatar");
       }
     }
   });
@@ -211,6 +215,8 @@ function initProfile() {
         const loginBtnLink = document.getElementById("loginBtnLink");
         if (loginBtnLink) {
           loginBtnLink.innerHTML = `<img src="${downloadUrl}" alt="Profile">`;
+          const loginBtn = loginBtnLink.closest(".loginbtn");
+          if (loginBtn) loginBtn.classList.add("has-avatar");
         }
 
         avatarFileInput.value = "";
