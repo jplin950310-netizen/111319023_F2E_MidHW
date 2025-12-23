@@ -1,50 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA8i_OQPaYxPxnlyw8PBaaiT98RPCzblQg",
-  authDomain: "chat-box-fac06.firebaseapp.com",
-  projectId: "chat-box-fac06",
-  storageBucket: "chat-box-fac06.firebasestorage.app",
-  messagingSenderId: "83529081314",
-  appId: "1:83529081314:web:d05c7f3f389d5f0e6ed9bb",
-  measurementId: "G-QX27493210",
-};
-
-let app, auth, db;
-
-// Try to get existing app, or create new one
-try {
-  app = initializeApp(firebaseConfig);
-} catch (e) {
-  if (e.code === "app/duplicate-app") {
-    app = window.firebase.app();
-  } else {
-    throw e;
-  }
-}
-
-auth = getAuth(app);
-db = getFirestore(app);
-
-async function getUserProfile(userId) {
-  if (!userId) return null;
-  try {
-    const userDoc = await getDoc(doc(db, "users", userId));
-    return userDoc.exists() ? userDoc.data() : null;
-  } catch (e) {
-    console.error("Error fetching user profile:", e);
-    return null;
-  }
-}
+import { auth } from "./firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getUserProfile, getDisplayName, getAvatarUrl } from "./user-service.js";
 
 // 更新 loginbtn 顯示
 function initLoginButton() {
@@ -57,16 +13,8 @@ function initLoginButton() {
     if (user) {
       // 已登入
       const userProfile = await getUserProfile(user.uid);
-
-      const displayName =
-        (userProfile && (userProfile.displayName || userProfile.name)) ||
-        user.displayName ||
-        (user.email ? user.email.split("@")[0] : "User");
-
-      const avatarUrl =
-        (userProfile && userProfile.avatarUrl) ||
-        user.photoURL ||
-        null;
+      const displayName = getDisplayName(userProfile, user);
+      const avatarUrl = getAvatarUrl(userProfile, user);
 
       if (avatarUrl) {
         loginBtnLink.innerHTML = `<img src="${avatarUrl}" alt="${displayName}">`;

@@ -1,43 +1,14 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { auth, db } from "./firebase-init.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import {
-  getFirestore,
   collection,
   addDoc,
   onSnapshot,
   query,
   orderBy,
   serverTimestamp,
-  doc,
-  getDoc,
-  setDoc,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-// Same Firebase project used by `JS/interactive_login.js`
-const firebaseConfig = {
-  apiKey: "AIzaSyA8i_OQPaYxPxnlyw8PBaaiT98RPCzblQg",
-  authDomain: "chat-box-fac06.firebaseapp.com",
-  projectId: "chat-box-fac06",
-  storageBucket: "chat-box-fac06.firebasestorage.app",
-  messagingSenderId: "83529081314",
-  appId: "1:83529081314:web:d05c7f3f389d5f0e6ed9bb",
-  measurementId: "G-QX27493210",
-};
-
-let app, db, auth;
-
-try {
-  app = initializeApp(firebaseConfig);
-} catch (e) {
-  // Firebase already initialized
-  app = window.__firebaseApp || initializeApp(firebaseConfig);
-}
-
-db = getFirestore(app);
-auth = getAuth(app);
+import { getUserProfile } from "./user-service.js";
 
 let currentUser = null;
 let currentUserProfile = null;
@@ -66,18 +37,6 @@ function formatTime(ts) {
     return "";
   }
 }
-
-async function getUserProfile(userId) {
-  if (!userId) return null;
-  try {
-    const userDoc = await getDoc(doc(db, "users", userId));
-    return userDoc.exists() ? userDoc.data() : null;
-  } catch (e) {
-    console.error("Error fetching user profile:", e);
-    return null;
-  }
-}
-
 function renderMessages(messagesContainer, docs) {
   if (!docs.length) {
     messagesContainer.innerHTML = '<div class="loading">目前還沒有留言</div>';

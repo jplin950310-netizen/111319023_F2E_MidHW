@@ -1,64 +1,22 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { auth, db, storage } from "./firebase-init.js";
 import {
-  getAuth,
   onAuthStateChanged,
   signOut,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import {
-  getFirestore,
   doc,
   getDoc,
   setDoc,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import {
-  getStorage,
   ref,
   uploadBytes,
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA8i_OQPaYxPxnlyw8PBaaiT98RPCzblQg",
-  authDomain: "chat-box-fac06.firebaseapp.com",
-  projectId: "chat-box-fac06",
-  storageBucket: "chat-box-fac06.firebasestorage.app",
-  messagingSenderId: "83529081314",
-  appId: "1:83529081314:web:d05c7f3f389d5f0e6ed9bb",
-  measurementId: "G-QX27493210",
-};
-
-let app, auth, db, storage;
-
-try {
-  app = initializeApp(firebaseConfig);
-} catch (e) {
-  // Firebase already initialized
-  app = window.__firebaseApp || initializeApp(firebaseConfig);
-}
-
-auth = getAuth(app);
-db = getFirestore(app);
-// 不指定 bucket，Firebase 會自動用 firebaseConfig 的 storageBucket
-try {
-  storage = getStorage(app);
-  console.log("Storage initialized successfully");
-} catch (e) {
-  console.error("Storage initialization failed:", e);
-}
+import { getUserProfile, getDisplayName, getAvatarUrl } from "./user-service.js";
 
 let currentUser = null;
 let currentUserProfile = null;
-
-async function getUserProfile(userId) {
-  if (!userId) return null;
-  try {
-    const userDoc = await getDoc(doc(db, "users", userId));
-    return userDoc.exists() ? userDoc.data() : null;
-  } catch (e) {
-    console.error("Error fetching user profile:", e);
-    return null;
-  }
-}
 
 function initProfile() {
   const loginPrompt = document.getElementById("login-prompt");
@@ -108,15 +66,8 @@ function initProfile() {
 
         // 更新 loginbtn：顯示頭像或顯示名稱（與 auth-ui 行為一致）
         if (loginBtnLink) {
-          const displayName =
-            (currentUserProfile && (currentUserProfile.displayName || currentUserProfile.name)) ||
-            user.displayName ||
-            (user.email ? user.email.split('@')[0] : 'User');
-
-          const avatarUrl =
-            (currentUserProfile && currentUserProfile.avatarUrl) ||
-            user.photoURL ||
-            null;
+          const displayName = getDisplayName(currentUserProfile, user);
+          const avatarUrl = getAvatarUrl(currentUserProfile, user);
 
           if (avatarUrl) {
             loginBtnLink.innerHTML = `<img src="${avatarUrl}" alt="${displayName}">`;
