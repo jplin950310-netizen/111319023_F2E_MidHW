@@ -48,27 +48,31 @@ async function getUserProfile(userId) {
 
 // 更新 loginbtn 顯示
 function initLoginButton() {
-  const loginBtnLink = document.getElementById("loginBtnLink");
-  
-  if (!loginBtnLink) {
-    return;
-  }
+  // 支援有 id 或只有 .loginbtn a 的頁面
+  const loginBtnLink = document.getElementById("loginBtnLink") || document.querySelector(".loginbtn a");
+  if (!loginBtnLink) return;
 
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       // 已登入
       const userProfile = await getUserProfile(user.uid);
-      
-      if (userProfile) {
-        if (userProfile.avatarUrl) {
-          // 有頭像：顯示頭像圖片
-          loginBtnLink.innerHTML = `<img src="${userProfile.avatarUrl}" alt="Profile">`;
-        } else {
-          // 無頭像：顯示"匿名"
-          loginBtnLink.textContent = "anonymous";
-        }
-        loginBtnLink.href = "./profile.html";
+
+      const displayName =
+        (userProfile && (userProfile.displayName || userProfile.name)) ||
+        user.displayName ||
+        (user.email ? user.email.split("@")[0] : "User");
+
+      const avatarUrl =
+        (userProfile && userProfile.avatarUrl) ||
+        user.photoURL ||
+        null;
+
+      if (avatarUrl) {
+        loginBtnLink.innerHTML = `<img src="${avatarUrl}" alt="${displayName}">`;
+      } else {
+        loginBtnLink.textContent = displayName;
       }
+      loginBtnLink.href = "./profile.html";
     } else {
       // 未登入
       loginBtnLink.textContent = "LOGIN";

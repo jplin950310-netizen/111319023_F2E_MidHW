@@ -52,11 +52,22 @@ main {
 .loginbtn a {
   color: #fff;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
+}
+
+.loginbtn img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+  display: block;
 }
 
 .loginbtn { 

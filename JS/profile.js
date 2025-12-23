@@ -105,13 +105,22 @@ function initProfile() {
           }
         }
 
-        // 更新 loginbtn 顯示頭像或匿名
+        // 更新 loginbtn：顯示頭像或顯示名稱（與 auth-ui 行為一致）
         if (loginBtnLink) {
-          const loginBtnContainer = loginBtnLink.parentElement;
-          if (currentUserProfile.avatarUrl) {
-            loginBtnLink.innerHTML = `<img src="${currentUserProfile.avatarUrl}" alt="Profile">`;
+          const displayName =
+            (currentUserProfile && (currentUserProfile.displayName || currentUserProfile.name)) ||
+            user.displayName ||
+            (user.email ? user.email.split('@')[0] : 'User');
+
+          const avatarUrl =
+            (currentUserProfile && currentUserProfile.avatarUrl) ||
+            user.photoURL ||
+            null;
+
+          if (avatarUrl) {
+            loginBtnLink.innerHTML = `<img src="${avatarUrl}" alt="${displayName}">`;
           } else {
-            loginBtnLink.textContent = "profile";
+            loginBtnLink.textContent = displayName;
           }
           loginBtnLink.href = "./profile.html";
         }

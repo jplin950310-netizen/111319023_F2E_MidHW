@@ -79,6 +79,10 @@ body {
 .loginbtn a {
   color: #fff;
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .loginbtn img {
@@ -87,6 +91,7 @@ body {
   border-radius: 50%;
   border: 2px solid #fff;
   object-fit: cover;
+  display: block;
 }
 
 .loginbtn:hover {
