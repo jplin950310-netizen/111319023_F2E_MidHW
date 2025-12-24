@@ -434,7 +434,7 @@ body {
   }
 
   .loginbtn {
-    margin: 0 auto;
+    margin: 0;
     align-self: center;
     font-size: 24px;
   }
@@ -457,6 +457,22 @@ body {
     border-radius: 8px;
     cursor: pointer;
     margin-left: auto;
+  }
+
+  /* Tablet/laptop (>=481px up to 1161px): keep title left, stick avatar just left of hamburger */
+  @media (min-width: 481px) {
+    .header-inner {
+      justify-content: flex-start;
+    }
+
+    .loginbtn {
+      margin-left: auto;
+      margin-right: 12px;
+    }
+
+    .hamburger {
+      margin-left: 0;
+    }
   }
 
   .main-nav {
